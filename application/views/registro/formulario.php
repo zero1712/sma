@@ -260,7 +260,7 @@
                  $("#form_datos_agenda").submit();
                  }
                  if($("#tipo_documento").val()==2){
-                 $("#idDocumento_hide").val(idDocumento);
+                 $("#idDocumento_hide1").val(idDocumento);
                  $("#form_datos_administracion").submit();
                  }
                  if($("#tipo_documento").val()==3){
@@ -303,6 +303,44 @@
     return false; // evitar la ejecucion del form si algo falla
            });
         //termina boton registrar agenda
+
+
+
+
+
+        //empieza boton registrar administracion
+        $('#btt_registrar_administracion').click(function() {
+            $("#form_documento").submit();
+        });
+         
+        
+         $("#form_datos_administracion").submit(function() {
+                var formObj = $(this);
+                var formData = new FormData(this);
+                var url = "<?php echo base_url();?>index.php/registro/setAdministracion"; 
+
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: formData, // de forma seriada los elementos del form
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+           {
+                alert("Se registro la agenda o evento exitosamente!");
+         
+           }, 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+         });
+
+    return false; // evitar la ejecucion del form si algo falla
+           });
+
+        ///termina boton registrar administracion
          $('.clockpicker').clockpicker();
                  var $image = $(".image-crop > img")
             $($image).cropper({
@@ -1109,8 +1147,8 @@
                                     </div>
                                     </div>
                                             <div id="datos_administracion" style="display:none">
-                                    <form method="get" id="form_datos_administracion" name="form_datos_administracion" class="form-horizontal">
-         
+                                    <form enctype="multipart/form-data" method="post" id="form_datos_administracion" name="form_datos_administracion" class="form-horizontal">
+                                     <input type="hidden" id="idDocumento_hide1" name="idDocumento_hide1" >
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Remitente:</label>
 
@@ -1134,13 +1172,13 @@
 
                                        <div class="col-sm-4">
                                                 <div class="radio radio-danger">
-                                                    <input type="radio" name="radio_tipo_escrito" id="radio_tipo_escrito1" value="1" checked="">
+                                                    <input type="radio" name="radio_tipo_escrito1" id="radio_tipo_escrito1" value="1" checked="">
                                                     <label for="radio_tipo_escrito">
                                                         Con copia para
                                                     </label>
                                                 </div>
                                                 <div class="radio radio-danger">
-                                                    <input type="radio" name="radio_tipo_escrito" id="radio_tipo_escrito2" value="2">
+                                                    <input type="radio" name="radio_tipo_escrito1" id="radio_tipo_escrito1" value="2">
                                                     <label for="radio_tipo_escrito">
                                                         Presidente Municipal
                                                     </label>
@@ -1178,6 +1216,21 @@
                                     </div>
                 
                              
+                                    </div>
+                                     <div class="hr-line-dashed"></div>
+                                    <div class="row">
+                                        <center>
+                                        <div class="col-sm-12">
+                                            <div clas="col-sm-6"></div>
+                                            
+                                                <div clas="col-sm-6">
+                                                    <div class="form-group">
+                                                    <button class="btn btn-info" id="btt_limpiar_administracion" name="btt_limpiar_administracion" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                    <button class="btn btn-primary" id="btt_registrar_administracion" id="btt_registrar_administracion"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
+                                                    </div>
+                                                </div>        
+                                        </div>
+                                            </center>
                                     </div>
                                                 </form>
                                 <div id="datos_peticiones" style="display:none">

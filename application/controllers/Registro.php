@@ -141,4 +141,32 @@ class Registro extends CI_Controller {
        
         $this->Agenda_eventos_model->insertar_agenda($data);
     }
+
+    public function setAdministracion(){
+        
+        $this->load->model("Administracion_model");
+    
+        $tipo_de_escrito=$this->input->post("radio_tipo_escrito1");
+        $seguimiento=$this->input->post("seguimiento_administracion");
+        $remitente=$this->input->post("remitente_administracion");
+        $cargo=$this->input->post("cargo_administracion");
+        $destinatario=$this->input->post("destinatario_administracion");
+        $asunto=$this->input->post("asunto_administracion");
+        $id_documento=$this->input->post("idDocumento_hide1");
+
+        $data=array(
+            "tipo_de_escrito"=>$tipo_de_escrito,
+            "seguimiento"=>$seguimiento,
+            "remitente"=>$remitente,
+            "cargo"=>$cargo,
+            "destinatario"=>$destinatario,
+            "asunto"=>$asunto,
+            "id_documento"=>$id_documento
+        
+        );
+        $this->Administracion_model->insertar_administracion($data);
+    }
+
+
+
 }
