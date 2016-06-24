@@ -231,7 +231,39 @@
     return false; // evitar la ejecucion del form si algo falla
 });
     
-        
+     ////BOTON REGISTRAR ADMINISTRACION
+
+        $('#btt_registrar_administracion').click(function() {
+            $("#form_datos_documento").submit();
+        });
+ 
+           $("#form_datos_documento").submit(function() {
+                var formObj = $(this);
+                var formData = new FormData(this);
+                var url = "<?php echo base_url();?>index.php/registro/setDocumento"; 
+
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: formData, // de forma seriada los elementos del form
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+           {
+               
+                alert("Se registro la audiencia de manera exitosa!"); 
+           }, 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+         });
+
+    return false; // evitar la ejecucion del form si algo falla
+});
+    
+     //TERMINA BOTON REGISTRAR ADMINISTRACION   
          $('.clockpicker').clockpicker();
                  var $image = $(".image-crop > img")
             $($image).cropper({
@@ -1018,10 +1050,12 @@
                                         </div>
                                       
                                         </div>
+
                                         </form>
+
                                     </div>
                                             <div id="datos_administracion" style="display:none">
-                                    <form method="get" id="form_datos_administracion" name="form_datos_administracion" class="form-horizontal">
+                                    <form enctype="multipart/form-data" method="post" id="form_datos_administracion" name="form_datos_administracion" class="form-horizontal">
          
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Remitente:</label>
@@ -1091,7 +1125,22 @@
                 
                              
                                     </div>
-                                                </form>
+                                       <div class="hr-line-dashed"></div>
+                                    <div class="row">
+                                        <center>
+                                        <div class="col-sm-12">
+                                            <div clas="col-sm-6"></div>
+                                            
+                                                <div clas="col-sm-6">
+                                                    <div class="form-group">
+                                                    <button class="btn btn-info" id="btt_limpiar_administracion" name="btt_limpiar_administracion" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                    <button class="btn btn-primary" id="btt_registrar_administracion" id="btt_registrar_administracion"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
+                                                    </div>
+                                                </div>        
+                                        </div>
+                                            </center>
+                                    </div>
+                                                </form><!-- TERMINA DOCUMENTO -> ADMINISTRACION--> 
                                 <div id="datos_peticiones" style="display:none">
                                     <form method="get" id="form_datos_peticiones" name="form_datos_peticiones" class="form-horizontal">
 
