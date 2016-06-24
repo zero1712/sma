@@ -239,7 +239,7 @@
            $("#form_documento").submit(function() {
                 var formObj = $(this);
                 var formData = new FormData(this);
-                var url = "<?php echo base_url();?>index.php/registro/setDocumento; 
+                var url = "<?php echo base_url();?>index.php/registro/setDocumento"; 
 
                 $.ajax({
                 type: "POST",
@@ -252,6 +252,47 @@
                 success: function(data)
            {
                
+                 var idDocumento= $.parseJSON(data);
+               
+                
+                 if($("#tipo_documento").val()==1){
+                 $("#idDocumento_hide").val(idDocumento);
+                 $("#form_datos_agenda").submit();
+                 }
+                 if($("#tipo_documento").val()==2){
+                 $("#idDocumento_hide").val(idDocumento);
+                 $("#form_datos_administracion").submit();
+                 }
+                 if($("#tipo_documento").val()==3){
+                 $("#idDocumento_hide").val(idDocumento);
+                 $("#form_datos_peticiones").submit();
+                 }
+         
+           }, 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+         });
+
+    return false; // evitar la ejecucion del form si algo falla
+           });
+        
+         $("#form_datos_agenda").submit(function() {
+                var formObj = $(this);
+                var formData = new FormData(this);
+                var url = "<?php echo base_url();?>index.php/registro/setAgenda"; 
+
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: formData, // de forma seriada los elementos del form
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+           {
+                alert("Se registro la agenda o evento exitosamente!");
          
            }, 
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -346,7 +387,8 @@
                 keyboardNavigation: false,
                 forceParse: false,
                 calendarWeeks: true,
-                autoclose: true
+                autoclose: true,
+                format: "yyyy-mm-dd"
             });
             $('#data_2 .input-group.date').datepicker({
                 startView: 1,
@@ -866,7 +908,7 @@
 
                                     <div id="datos_agenda" style="display:none">
                                         <form enctype="multipart/form-data" method="post" id="form_datos_agenda" name="form_datos_agenda" class="form-horizontal">
-
+                                    <input type="hidden" id="idDocumento_hide" name="idDocumento_hide" >
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Remitente:</label>
 
@@ -1024,20 +1066,20 @@
 
                                        <div class="col-sm-4">
                                                 <div class="radio radio-danger">
-                                                    <input type="radio" name="tipo_evento" id="radio1" value="option1" checked="">
-                                                    <label for="radio1">
+                                                    <input type="radio" name="tipo_evento" id="tipo_evento" value="1" checked="">
+                                                    <label for="tipo_evento">
                                                         Municipal
                                                     </label>
                                                 </div>
                                                 <div class="radio radio-danger">
-                                                    <input type="radio" name="tipo_evento" id="radio2" value="option2">
-                                                    <label for="radio2">
+                                                    <input type="radio" name="tipo_evento" id="tipo_evento" value="2">
+                                                    <label for="tipo_evento">
                                                         Estatal
                                                     </label>
                                                 </div>
                                            <div class="radio radio-danger">
-                                                    <input type="radio" name="tipo_evento" id="radio3" value="option2">
-                                                    <label for="radio3">
+                                                    <input type="radio" name="tipo_evento" id="tipo_evento" value="3">
+                                                    <label for="tipo_evento">
                                                         Federal
                                                     </label>
                                                 </div>

@@ -81,4 +81,64 @@ class Registro extends CI_Controller {
         
         
     }
+    
+    public function setDocumento(){
+        $this->load->model("Documento_model");
+        $fecha_documento=$this->input->post("fecha_documento");
+        $tipo_documento=$this->input->post("tipo_documento");
+        $numero_documento=$this->input->post("numero_documento");
+        
+        $data=array(
+            "fecha_documento"=>$fecha_documento,
+            "tipo_documento"=>$tipo_documento,
+            "numero_documento"=>$numero_documento
+        
+        );
+    
+        $this->Documento_model->insertar_documento($data);
+        $idDocumento=$this->Documento_model->getIdDocumento($data);
+        
+        echo json_encode($idDocumento);
+       
+        
+    }
+    
+    public function setAgenda(){
+        
+        $this->load->model("Agenda_eventos_model");
+    
+        $fecha_de_evento=$this->input->post("fecha_evento_agenda");
+        $calle_y_numero=$this->input->post("callenumero_agenda");
+        $hora=$this->input->post("hora_evento_agenda");
+        $municipio=$this->input->post("municipio_agenda");
+        $asistentes_aproximados=$this->input->post("asistentes_aproximados");
+        $tipo_de_evento=$this->input->post("tipo_evento");
+        $nombre_evento=$this->input->post("nombre_evento_agenda");
+        $descripcion_evento=$this->input->post("descripcion_evento_agenda");
+        $remitente=$this->input->post("remitente_agenda");
+        $cargo=$this->input->post("cargo_agenda");
+        $telefono_contacto=$this->input->post("telefono_contacto_agenda");
+        $colonia_evento=$this->input->post("colonia_evento");
+        $colonia_otro=$this->input->post("colonia_agenda");
+        $id_documento=$this->input->post("idDocumento_hide");
+        $data=array(
+            "fecha_de_evento"=>$fecha_de_evento,
+            "calle_y_numero"=>$calle_y_numero,
+            "hora"=>$hora,
+            "municipio"=>$municipio,
+            "asistentes_aproximados"=>$asistentes_aproximados,
+            "tipo_de_evento"=>$tipo_de_evento,
+            "nombre_evento"=>$nombre_evento,
+            "descripcion_evento"=>$descripcion_evento,
+            "remitente"=>$remitente,
+            "cargo"=>$cargo,
+            "telefono_contacto"=>$telefono_contacto,
+            "colonia_evento"=>$colonia_evento,
+            "colonia_otro"=>$colonia_otro,
+            "id_documento"=>$id_documento
+        
+        );
+       
+        $this->Agenda_eventos_model->insertar_agenda($data);
+    }
 }
