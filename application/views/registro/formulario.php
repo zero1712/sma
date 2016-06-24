@@ -229,9 +229,39 @@
          });
 
     return false; // evitar la ejecucion del form si algo falla
-});
-    
+           });
         
+        //boton registrar agenda_eventos
+        $('#btt_registrar_agenda_eventos').click(function() {
+            $("#form_documento").submit();
+        });
+              //registrar documento
+           $("#form_documento").submit(function() {
+                var formObj = $(this);
+                var formData = new FormData(this);
+                var url = "<?php echo base_url();?>index.php/registro/setDocumento; 
+
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: formData, // de forma seriada los elementos del form
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+           {
+               
+         
+           }, 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+         });
+
+    return false; // evitar la ejecucion del form si algo falla
+           });
+        //termina boton registrar agenda
          $('.clockpicker').clockpicker();
                  var $image = $(".image-crop > img")
             $($image).cropper({
@@ -801,7 +831,7 @@
                           <div class="ibox-title">
                             <h3>Datos del documento<small></small></h3>
                                 <div class="ibox-content">
-                                      <form method="get" class="form-horizontal">
+                                      <form enctype="multipart/form-data" id="form_documento" name="form_documento" method="post" class="form-horizontal">
 
                                     
                                                                              <div class="form-group has-success"><label class="col-sm-2 control-label" for="tipo_registro">Tipo de documento:</label>
@@ -835,7 +865,7 @@
                                     </form>
 
                                     <div id="datos_agenda" style="display:none">
-                                        <form method="get" id="form_datos_agenda" name="form_datos_agenda" class="form-horizontal">
+                                        <form enctype="multipart/form-data" method="post" id="form_datos_agenda" name="form_datos_agenda" class="form-horizontal">
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Remitente:</label>
@@ -1019,6 +1049,22 @@
                                       
                                         </div>
                                         </form>
+                                                                                                                       <div class="hr-line-dashed"></div>
+
+                                              <div class="row">
+                                        <center>
+                                        <div class="col-sm-12">
+                                            <div clas="col-sm-6"></div>
+                                            
+                                                <div clas="col-sm-6">
+                                                    <div class="form-group">
+                                                    <button class="btn btn-info" id="btt_limpiar_agenda_eventos" name="btt_limpiar_agenda_eventos" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                    <button class="btn btn-primary" id="btt_registrar_agenda_eventos" id="btt_limpiar_agenda_eventos"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
+                                                    </div>
+                                                </div>        
+                                        </div>
+                                            </center>
+                                    </div>
                                     </div>
                                             <div id="datos_administracion" style="display:none">
                                     <form method="get" id="form_datos_administracion" name="form_datos_administracion" class="form-horizontal">
