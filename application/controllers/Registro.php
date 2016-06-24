@@ -168,5 +168,60 @@ class Registro extends CI_Controller {
     }
 
 
+     public function setPeticiones(){
+        
+        $this->load->model("Peticiones_model");
+        $this->load->model("Datos_generales_model");
+        $nombre=$this->input->post("nombre_peticionario");
+        $ap_paterno=$this->input->post("apellidop_peticionario");
+        $ap_materno=$this->input->post("apellidom_peticionario");
+   
+        $tel_celular=$this->input->post("celular_peticionario");
+        $tel_casa=$this->input->post("casa_peticionario");
+       // $calle_y_numero=$this->input->post("callenumero_audiencia"); //NO EXISTE CALLENUMERO EN PETICIONES
+        //$colonia=$this->input->post("colonia_audiencia"); //NO EXISTE COLONIA AUDIENCIA EN PETICIONES
+    
+        $data=array(
+            'nombre'=>$nombre,
+            'ap_paterno'=>$ap_paterno,
+            'ap_materno'=>$ap_materno,
+            'tel_celular'=>$tel_celular,
+            'tel_casa'=>$tel_casa,
+           // 'calle_y_numero'=>$calle_y_numero,//NO EXISTE CALLENUMERO EN PETICIONES
+           // 'colonia'=>$colonia//NO EXISTE COLONIA AUDIENCIA EN PETICIONES
+        
+        );
+        
+        $this->Datos_generales_model->insertar_datos_generales($data); 
+        $resultado=$this->Datos_generales_model->getIdDatosGenerales($data);
+
+
+
+
+        $tipo_de_peticion =$this->input->post("tipo_peticion");
+        $concepto=$this->input->post("concepto_peticionario");
+        $unidad_de_medida =$this->input->post("unidad_medida");
+        $cantidad=$this->input->post("cantidad_peticionario");
+        $prioridad=$this->input->post("prioridad_peticionario");
+        $observaciones=$this->input->post("observaciones_peticionario");
+         $peticion=$this->input->post("peticion_peticionario"); 
+        $id_documento=$this->input->post("idDocumento_hide2");
+
+        $data1=array(
+            "tipo_de_peticion"=>$tipo_de_peticion,
+            "concepto"=>$concepto,
+            "unidad_de_medida"=>$unidad_de_medida,
+            "cantidad"=>$cantidad,
+            "prioridad"=>$prioridad,
+            "observaciones"=>$observaciones,
+            "peticion"=>$peticion,
+            'id_datos_generales'=>$resultado,
+            "id_documento"=>$id_documento
+        
+        );
+        $this->Peticiones_model->insertar_peticiones($data1);
+    }
+
+
 
 }

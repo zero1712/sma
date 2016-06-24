@@ -264,7 +264,7 @@
                  $("#form_datos_administracion").submit();
                  }
                  if($("#tipo_documento").val()==3){
-                 $("#idDocumento_hide").val(idDocumento);
+                 $("#idDocumento_hide2").val(idDocumento);
                  $("#form_datos_peticiones").submit();
                  }
          
@@ -329,7 +329,7 @@
                 processData:false,
                 success: function(data)
            {
-                alert("Se registro la agenda o evento exitosamente!");
+                alert("Se registro la administracion exitosamente!");
          
            }, 
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
@@ -341,6 +341,47 @@
            });
 
         ///termina boton registrar administracion
+
+
+//empieza boton registrar peticiones
+        $('#btt_registrar_peticiones').click(function() {
+            $("#form_documento").submit();
+        });
+         
+        
+         $("#form_datos_peticiones").submit(function() {
+                var formObj = $(this);
+                var formData = new FormData(this);
+                var url = "<?php echo base_url();?>index.php/registro/setPeticiones"; 
+
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: formData, // de forma seriada los elementos del form
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+           {
+                alert("Se registro la peticion exitosamente!");
+         
+           }, 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+         });
+
+    return false; // evitar la ejecucion del form si algo falla
+           });
+
+        ///termina boton registrar peticiones
+
+
+
+
+
+
          $('.clockpicker').clockpicker();
                  var $image = $(".image-crop > img")
             $($image).cropper({
@@ -1214,10 +1255,7 @@
                                         <div class="col-sm-10">
                                                 <textarea class="form-control" id="seguimiento_administracion" name="seguimiento_administracion" rows="5" id="comment"></textarea>                                                                                </div>
                                     </div>
-                
-                             
-                                    </div>
-                                     <div class="hr-line-dashed"></div>
+                  <div class="hr-line-dashed"></div>
                                     <div class="row">
                                         <center>
                                         <div class="col-sm-12">
@@ -1230,12 +1268,16 @@
                                                     </div>
                                                 </div>        
                                         </div>
+                             
+                                    </div>
+                                    
+                                                </form>
+                                               
                                             </center>
                                     </div>
-                                                </form>
                                 <div id="datos_peticiones" style="display:none">
-                                    <form method="get" id="form_datos_peticiones" name="form_datos_peticiones" class="form-horizontal">
-
+                                    <form enctype="multipart/form-data" method="post" id="form_datos_peticiones" name="form_datos_peticiones" class="form-horizontal">
+                                            <input type="hidden" id="idDocumento_hide2" name="idDocumento_hide2" >
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Peticionario nombre(s):</label>
 
@@ -1363,7 +1405,21 @@
                                         <div class="col-sm-10">
                                                 <textarea class="form-control" id="observaciones_peticionario" name="observaciones_peticionario" rows="5" id="comment"></textarea>                                                                                </div>
                                     </div>
-                
+                 <div class="hr-line-dashed"></div>
+                                    <div class="row">
+                                        <center>
+                                        <div class="col-sm-12">
+                                            <div clas="col-sm-6"></div>
+                                            
+                                                <div clas="col-sm-6">
+                                                    <div class="form-group">
+                                                    <button class="btn btn-info" id="btt_limpiar_peticiones" name="btt_limpiar_peticiones" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                    <button class="btn btn-primary" id="btt_registrar_peticiones" id="btt_registrar_peticiones"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
+                                                    </div>
+                                                </div>        
+                                        </div>
+                             
+                                    </div>
                              
                                     </div>
                                         
