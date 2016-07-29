@@ -122,9 +122,7 @@ var data2;
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
-            },
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar
+            },droppable: true, // this allows things to be dropped onto the calendar
             drop: function() {
                 // is the "remove after drop" checkbox checked?
                 if ($('#drop-remove').is(':checked')) {
@@ -166,6 +164,15 @@ var data2;
         $("span.ui-dialog-title").text(titleDialog); 
         $("#datos_agenda").dialog('open');
 
+    },
+    editable: true,   eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+        var fechaNueva =new Date(calEvent.start);
+        var diaNueva= fecha.getDate()+1;
+        var mesNueva= fecha.getMonth()+1;
+        var añoNueva= fecha.getFullYear();
+           alert(event.id_agenda_eventos);
+              alert(event.getDay);
+        
     }
         });
 
@@ -294,7 +301,22 @@ function fluidDialog() {
 
 }
 
-   
+$('#bttGuardar').click(function() {
+            var dataJson = JSON.stringify( $('#calendar').fullCalendar('getResources'));
+            
+            alert($('#calendar').fullCalendar('getResources'));
+          /*  $.ajax({
+            url: "<?php echo base_url();?>index.php/agenda/writeToCsv",
+            type: "POST",
+            data: dataJson,
+            success: function(){
+                    alert('Se Generara el .CSV de todos los registros existentes'); 
+                    var link = "<?php echo base_url();?>index.php/registros/writeToCsv";
+                    window.open(link,'newStuff');
+                                }
+
+                    });*/
+                                });
      });
     
 
@@ -512,7 +534,7 @@ font-family: arial;
                 <div class="ibox-content">
                     <div id='external-events'>
                         <p>Selecciona alguna opción:</p>
-                        <button class="btn btn-success "  type="button"><i class="fa fa-upload"></i>&nbsp;&nbsp;<span class="bold">Guardar cambios    </span></button>
+                        <button class="btn btn-success " id="bttGuardar" name="bttGuardar"  type="button"><i class="fa fa-upload"></i>&nbsp;&nbsp;<span class="bold">Guardar cambios    </span></button>
                        
                         </p>
                     </div>
