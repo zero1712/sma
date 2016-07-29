@@ -176,12 +176,27 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                         <label class="col-sm-2 control-label">Unidad de medida:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="unidad_de_medida" name="unidad_de_medida"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                            <select id="unidad_de_medida" name="unidad_de_medida"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                                <option  value="">Seleccione</option>
+                                                <option  value="Kilogramos">Kilogramos</option>
+                                                <option  value="Tonelada">Tonelada</option>
+                                                <option  value="Pieza">Pieza</option>
+                                                <option  value="Litros">Litros</option>
+                                                <option  value="Metros">Metros</option>
+                                            </select>  
                                         </div>
             <label class="col-sm-2 control-label">Rubro:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="rubro" name="rubro" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                             <select id="rubro" name="rubro" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                               <option  value="">Seleccione</option>
+                                                <option  value="Calles/Servicios">Ciudadano</option>
+                                                <option  value="Educación">Educación</option>
+                                                <option  value="Religioso">Religioso</option>
+                                                <option  value="Salud">Salud</option>
+                                                <option  value="Seguridad">Seguridad </option>
+                                                <option  value="Calles/Servicios">Calles/Servicios</option>
+                                            </select>  
                                         </div>
                                     </div>
         </div>
@@ -198,7 +213,12 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
             <label class="col-sm-2 control-label">Prioridad:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="prioridad" name="prioridad" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                            <select id="prioridad" name="prioridad" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                                <option  value="">Seleccione</option>
+                                                <option  value="Urgente">Urgente</option>
+                                                <option  value="Regular">Regular</option>
+                                            </select>
+                                        
                                         </div>
                                     </div>
         </div>
@@ -227,9 +247,27 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                          <label class="col-sm-2 control-label">Tipo de petición:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="tipo" name="tipo" class="form-control"  onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                            <select id="tipo" name="tipo" class="form-control"  onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                             <option  value="">Seleccione</option>
+                                                <option  value="Materiales/Regalos/Obsequios">Materiales/Regalos/Obsequios</option>
+                                                <option  value="Laboral">Laboral</option>
+                                                <option  value="Salud">Salud</option>
+                                                <option  value="Servicios Federales">Servicios Federales</option>
+                                                <option  value="Servicios Estatales">Servicios Estatales</option>
+                                                <option  value="Servicios Municipales">Servicios Municipales</option>
+
+                                            </select>
                                         </div>
-    
+                                             <label class="col-sm-2 control-label">Status:</label>
+
+                                        <div class="col-sm-4">
+                                               <select class="form-control" id="status" name="status" >
+  <option value="" >Seleccione</option>
+  <option value="Contactado">Contactado</option>
+  <option value="N/A">N/A</option>
+</select>                                                                                     </div>
+        
+                                    </div>
                           
                                       
                                         </div>
@@ -350,7 +388,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 shrinkToFit: true,
                 rowNum: 20,
                 rowList: [10, 20, 30],
-                colNames:['ID','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Fecha entrada','peticion','id_peticiones','Tipo de peticion','Concepto','Unidad de medida','Rubro','Cantidad','Prioridad','Observaciones','Nombre','Apellido paterno','Apellido materno','Cargo','Telefono celular','Telefono casa','Calle y numero','Colonia','Municipio'],
+                colNames:['ID','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Fecha entrada','peticion','id_peticiones','Tipo de peticion','Concepto','Unidad de medida','Rubro','Cantidad','Prioridad','Observaciones','Nombre','Apellido paterno','Apellido materno','Cargo','Telefono celular','Telefono casa','Calle y numero','Colonia','Municipio','status'],
                 colModel:[
                     {name:'id_documento',index:'id_documento', editable: true, width:60, sorttype:"int",search:true,hidden: true},
                     {name:'fecha_documento',index:'fecha_documento', editable: true, width:90, sorttype:"date", formatter:"date",hidden: true},
@@ -361,7 +399,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {name:'peticion',index:'peticion', editable: true, width:100,hidden: false},
                     {name:'id_peticiones',index:'id_peticiones', editable: true, width:60, sorttype:"int",search:true,hidden: true},
                     {name:'tipo_de_peticion',index:'tipo_de_peticion', editable: true, width:90,hidden: false,formatter:"select", edittype: 'select', editoptions: { value: 'Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales', defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipale' }},
+                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales' }},
                     {name:'concepto',index:'concepto', editable: true, width:100,hidden: true},
                     {name:'unidad_de_medida',index:'unidad_de_medida', editable: true, width:100,hidden: true},
                     {name:'rubro',index:'rubro', editable: true, width:100,hidden: true},
@@ -377,7 +415,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {name:'tel_casa',index:'tel_casa', editable: true, width:60,search:true,hidden: true},
                     {name:'calle_y_numero',index:'calle_y_numero', editable: true, width:60,search:true,hidden: true},
                     {name:'colonia',index:'colonia', editable: true, width:60,search:true,hidden: true},
-                    {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: false}
+                    {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: false},
+                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: false,formatter:"select",edittype: 'select',editoptions: { value: ':Seleccione;Contactado:Contactado;N/A:N/A', defaultValue: 'IN' },
+                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Seleccione;Contactado:Contactado;N/A:N/A' }}
                   
                 ],
                 pager: "#pager_list_2",
@@ -409,6 +449,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     $("#calle").val(rowData["calle_y_numero"]);
                     $("#colonia").val(rowData["colonia"]);
                     $("#municipio").val(rowData["municipio"]);
+
 
                             $("#datos_peticion").dialog('open');
 
