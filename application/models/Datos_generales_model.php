@@ -18,6 +18,12 @@ class Datos_generales_model extends CI_Model
       return $id_datos_generales;
         
   }
+    
+   function updatePersonaById($data){
+        
+        $this->db->where('id_datos_generales',$data['id_datos_generales']);
+        return $this->db->update('datos_generales', $data);
+    }
 
 
  }

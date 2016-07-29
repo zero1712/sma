@@ -805,11 +805,18 @@
                        SMA+
                     </div>
                 </li>
-                <li class="active">
+                 <li class="active">
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
-                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Consulta</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
+                    <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
+
+
+
 
                 </li>
+
 
             </ul>
 

@@ -348,9 +348,13 @@ function actualizarCalendario(){
                     
 				});
 }
+   
      });
     
-
+ function aMays(e, elemento) {
+                        tecla=(document.all) ? e.keyCode : e.which; 
+                        elemento.value = elemento.value.toUpperCase();
+                        }
     
 </script>
 <style> 
@@ -392,8 +396,16 @@ font-family: arial;
                        SMA+
                     </div>
                 </li>
-                <li class="active">
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
+                  <li class="active">
+                    <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
+
+
+
+
                 </li>
 
             </ul>

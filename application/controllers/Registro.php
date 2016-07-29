@@ -39,6 +39,14 @@ class Registro extends CI_Controller {
         
         $this->load->view('registro/registros');
     }
+     public function registros_contactado(){
+        
+        $this->load->view('registro/registros_contactado');
+    }
+     public function registros_na(){
+        
+        $this->load->view('registro/registros_na');
+    }
         public function getStamp(){
   $now = (string)microtime();
   $now = explode(' ', $now);
@@ -338,6 +346,18 @@ class Registro extends CI_Controller {
         echo json_encode($data);
         
     }
+     public function getPeticiones_contactado(){
+       $this->load->model('Peticiones_model');
+       $data=$this->Peticiones_model->getPeticiones_contactado();
+        echo json_encode($data);
+        
+    }
+     public function getPeticiones_na(){
+       $this->load->model('Peticiones_model');
+       $data=$this->Peticiones_model->getPeticiones_na();
+        echo json_encode($data);
+        
+    }
     
     public function updatePeticionesById(){
      $this->load->model('Peticiones_model');
@@ -399,6 +419,29 @@ class Registro extends CI_Controller {
         echo json_encode(true);
 
 
+    }
+    public function updatePersonaById(){
+          $this->load->model('Datos_generales_model');
+      
+        $cargo=$this->input->post("cargo");
+        $tel_celular=$this->input->post("cel");
+        $tel_casa=$this->input->post("casa");
+        $calle_y_numero=$this->input->post("calle"); //NO EXISTE CALLENUMERO EN PETICIONES
+        $colonia=$this->input->post("colonia"); //NO EXISTE COLONIA AUDIENCIA EN PETICIONES
+        $municipio=$this->input->post("municipio");
+        $id_datos_generales=$this->input->post("id_datos_generales");
+          $data=array(
+            'cargo'=>$cargo,
+            'tel_casa'=>$tel_casa,
+            'calle_y_numero'=>$calle_y_numero,//NO EXISTE CALLENUMERO EN PETICIONES
+            'colonia'=>$colonia,//NO EXISTE COLONIA AUDIENCIA EN PETICIONES
+            'municipio'=>$municipio,
+            'id_datos_generales'=>$id_datos_generales
+        
+        );
+        
+        $this->Datos_generales_model->updatePersonaById($data);
+        echo json_encode(true);
     }
   public function logout(){
 		$this->session->unset_userdata("admin_login");

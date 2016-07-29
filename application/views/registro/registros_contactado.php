@@ -70,10 +70,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                        SMA+
                     </div>
                 </li>
-                <li class="active">
+                  <li class="active">
                     <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
-                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
                     <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
                     <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
 
@@ -277,9 +277,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
                                         <div class="col-sm-4">
                                                <select class="form-control" id="status" name="status" >
-  <option value="" >Seleccione</option>
+    <option value="" >Seleccione</option>
   <option value="Contactado">Contactado</option>
   <option value="N/A">N/A</option>
+  <option value="Atender">Atender</option>
+  <option value="Revisar">Revisar</option>
+  <option value="No aprobado">No aprobado</option>
+  <option value="Tramitar e informar">Tramitar e informar</option>
 </select>                                                                                     </div>
         
                                     </div>
@@ -291,7 +295,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
     </div>  
        
-          <div id="datos_peticionario" class="form-group" style="display:none">
+            <div id="datos_peticionario" class="form-group" style="display:none">
         <form enctype="multipart/form-data" method="post" id="form_datos_persona" name="form_datos_persona" class="form-vertical">
 
 
@@ -368,6 +372,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     </div>
 
 
+
             
         </div> 
     </div>
@@ -400,7 +405,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
         function iniciarComponents(){
                      $.ajax({
-					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones",
+					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones_contactado",
                     type:"POST",
                     //dataType: 'json', 
 					success: function(datos){
@@ -477,10 +482,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     $("#colonia").val(rowData["colonia"]);
                     $("#municipio").val(rowData["municipio"]);
                     $("#id_peticiones").val(rowData["id_peticiones"]);
+                    $("#status").val(rowData["status"]);
                     $("#id_datos_generales").val(rowData["id_datos_generales"]);
 
-                    $("#status").val(rowData["status"]);
-                    
 
 
                             $("#datos_peticion").dialog('open');
@@ -560,7 +564,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     modal: true,
     fluid: true, //new option
     resizable: false,     
-                buttons:[{
+              buttons:[{
                   id:"btnGuardar",
                   text:"Guardar",
                   click:function(){
@@ -627,7 +631,7 @@ $("#form_datos_persona").submit();
 
     return false; // evitar la ejecucion del form si algo falla
            });
-                   $("#form_datos_persona").submit(function() {
+              $("#form_datos_persona").submit(function() {
                 var formObj = $(this);
                 var formData = new FormData(this);
                 var url = "<?php echo base_url();?>index.php/registro/updatePersonaById"; 
@@ -679,6 +683,7 @@ $("#form_datos_persona").submit();
 
     return false; // evitar la ejecucion del form si algo falla
            });
+
 
 // catch dialog if opened within a viewport smaller than the dialog width
 $(document).on("dialogopen", ".ui-dialog", function (event, ui) {

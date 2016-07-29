@@ -22,7 +22,7 @@
             top: 900px !important;
         }
         
-        .ui-dialog
+.ui-dialog
 {
 background: #0489B1;
 }
@@ -70,11 +70,11 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                        SMA+
                     </div>
                 </li>
-                <li class="active">
+               <li class="active">
                     <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
                     <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
-                    <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
                     <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
 
 
@@ -280,6 +280,10 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
   <option value="" >Seleccione</option>
   <option value="Contactado">Contactado</option>
   <option value="N/A">N/A</option>
+  <option value="Atender">Atender</option>
+  <option value="Revisar">Revisar</option>
+  <option value="No aprobado">No aprobado</option>
+  <option value="Tramitar e informar">Tramitar e informar</option>
 </select>                                                                                     </div>
         
                                     </div>
@@ -291,7 +295,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
     </div>  
        
-          <div id="datos_peticionario" class="form-group" style="display:none">
+       <div id="datos_peticionario" class="form-group" style="display:none">
         <form enctype="multipart/form-data" method="post" id="form_datos_persona" name="form_datos_persona" class="form-vertical">
 
 
@@ -368,6 +372,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     </div>
 
 
+
             
         </div> 
     </div>
@@ -400,7 +405,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
         function iniciarComponents(){
                      $.ajax({
-					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones",
+					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones_na",
                     type:"POST",
                     //dataType: 'json', 
 					success: function(datos){
@@ -425,6 +430,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {name:'peticion',index:'peticion', editable: true, width:100,hidden: false},
                     {name:'id_peticiones',index:'id_peticiones', editable: true, width:60, sorttype:"int",search:true,hidden: true},
                     {name:'id_datos_generales',index:'id_datos_generales', editable: true, width:60, sorttype:"int",search:true,hidden: true},
+
                     {name:'tipo_de_peticion',index:'tipo_de_peticion', editable: true, width:90,hidden: false,formatter:"select", edittype: 'select', editoptions: { value: 'Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales', defaultValue: 'IN' },
                         stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales' }},
                     {name:'concepto',index:'concepto', editable: true, width:100,hidden: true},
@@ -477,10 +483,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     $("#colonia").val(rowData["colonia"]);
                     $("#municipio").val(rowData["municipio"]);
                     $("#id_peticiones").val(rowData["id_peticiones"]);
+                    $("#status").val(rowData["status"]);
                     $("#id_datos_generales").val(rowData["id_datos_generales"]);
 
-                    $("#status").val(rowData["status"]);
-                    
 
 
                             $("#datos_peticion").dialog('open');
@@ -627,7 +632,7 @@ $("#form_datos_persona").submit();
 
     return false; // evitar la ejecucion del form si algo falla
            });
-                   $("#form_datos_persona").submit(function() {
+              $("#form_datos_persona").submit(function() {
                 var formObj = $(this);
                 var formData = new FormData(this);
                 var url = "<?php echo base_url();?>index.php/registro/updatePersonaById"; 
@@ -679,6 +684,7 @@ $("#form_datos_persona").submit();
 
     return false; // evitar la ejecucion del form si algo falla
            });
+
 
 // catch dialog if opened within a viewport smaller than the dialog width
 $(document).on("dialogopen", ".ui-dialog", function (event, ui) {
