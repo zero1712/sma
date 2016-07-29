@@ -77,5 +77,17 @@ class Agenda extends CI_Controller {
         
         
     }
+    public function updateAgendaById(){
+        $this->load->model('Agenda_eventos_model');
+        $id_agenda_eventos=$this->input->post('id_agenda_eventos');
+        $fecha_de_evento=$this->input->post('fecha_de_evento');
+        $data=array(
+            "id_agenda_eventos"=>$id_agenda_eventos,
+            "fecha_de_evento"=>$fecha_de_evento
+        );
+        $this->Agenda_eventos_model->updateAgendaById($data);
+        echo json_encode(true);
+
+    }
 
 }

@@ -19,6 +19,11 @@ class Agenda_eventos_model extends CI_Model
         $this->db->where('id_agenda_eventos',$data['id_agenda_eventos']);
         return $this->db->update('agenda_eventos', $data);
     }
+     function updateAgendaById($data){
+        
+        $this->db->where('id_agenda_eventos',$data['id_agenda_eventos']);
+        return $this->db->update('agenda_eventos', $data);
+    }
 }
      
         
