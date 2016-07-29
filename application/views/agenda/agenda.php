@@ -53,6 +53,8 @@
 <script>
 $(document).ready(function(){
 var titleDialog='';
+var data2;   
+
     $('.clockpicker').clockpicker();
                  var $image = $(".image-crop > img")
             $($image).cropper({
@@ -63,9 +65,9 @@ var titleDialog='';
                 }
             });
 
-           
+    var data2;   
     iniciarComponents();
-     var data2;    
+         
     function iniciarComponents(){  
            
             $.ajax({
@@ -77,7 +79,6 @@ var titleDialog='';
                   
                       
 				   var datos = $.parseJSON(datos);
-                        data2=datos;
                         
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
@@ -89,7 +90,6 @@ var titleDialog='';
 
 
         $('#external-events div.external-event').each(function() {
-
             // store data so the calendar knows to render an event upon drop
             $(this).data('event', {
                 title: $.trim($(this).text()), // use the element's text as the event title
@@ -101,8 +101,9 @@ var titleDialog='';
                 zIndex: 1111999,
                 revert: true,      // will cause the event to go back to its
                 revertDuration: 0  //  original position after the drag
+                
             });
-
+            
         });
 
 
@@ -134,7 +135,8 @@ var titleDialog='';
             },
             events: datos,
     eventClick: function(calEvent, jsEvent, view) {
-         
+        $(this).css('border-color', 'red');
+
         var fecha =new Date(calEvent.start);
         var dia= fecha.getDate()+1;
         var mes= fecha.getMonth()+1;
@@ -163,7 +165,6 @@ var titleDialog='';
         titleDialog=calEvent.title;
         $("span.ui-dialog-title").text(titleDialog); 
         $("#datos_agenda").dialog('open');
-        $(this).css('border-color', 'red');
 
     }
         });
@@ -228,6 +229,23 @@ var titleDialog='';
                 var bandera=$.parseJSON(data);
                 if(bandera==true){
                 alert("Se actulizaron los datos exitosamente!");
+          
+            $.ajax({
+					url:"<?php echo base_url(); ?>" + "index.php/agenda/getAgenda",
+                    type:"POST",
+                    //dataType: 'json',
+                    
+					success: function(datos){
+                  
+                      
+				   var datos = $.parseJSON(datos);
+                     $("#calendar").fullCalendar('removeEvents');
+            
+                    $("#calendar").fullCalendar('addEventSource',datos);
+						
+					}
+                    
+				});
                 }else{
                 alert("Ocurrio un error al actualizar, intente de nuevo mas tarde.");
 
@@ -276,13 +294,7 @@ function fluidDialog() {
 
 }
 
-        $('#btt_actualizar').click(function() {
-                
-        alert("Se actualizara el calendario.");
-        $("#calendar").fullCalendar('renderEvent',data2,true);            
-                
-                                });
-         
+   
      });
     
 
@@ -501,7 +513,7 @@ font-family: arial;
                     <div id='external-events'>
                         <p>Selecciona alguna opción:</p>
                         <button class="btn btn-success "  type="button"><i class="fa fa-upload"></i>&nbsp;&nbsp;<span class="bold">Guardar cambios    </span></button>
-                        <button class="btn btn-primary " id="btt_actualizar" name="btt_actualizar" type="button"><i class="fa fa-check"></i>&nbsp;<span class="bold">Actualizar agenda</span></button>
+                       
                         </p>
                     </div>
                 </div>
