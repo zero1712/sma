@@ -145,7 +145,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     
     <div class="row">
     <div class="form-group has-success">
-                                        <label class="col-sm-2 control-label">Numero del documento:</label>
+                                        <label class="col-sm-2 control-label">Fecha del documento:</label>
 
                                         <div class="col-sm-4">
                                             <input type="text" id="fecha_documento" name="fecha_documento"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
