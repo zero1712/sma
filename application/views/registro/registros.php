@@ -141,8 +141,17 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
             </div>
         </div>
                <div id="datos_peticion" class="form-group" style="display:none">
+    <form enctype="multipart/form-data" method="post" id="form_datos_peticion" name="form_datos_peticion" class="form-vertical">
 
-    
+     <div class="row" style="display:none">
+                                    <div class="form-group has-success">
+                                        <label class="col-sm-2 control-label">ID:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" id="id_peticiones" name="id_peticiones" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                    </div>   
+             </div>
     <div class="row">
     <div class="form-group has-success">
                                         <label class="col-sm-2 control-label">Fecha del documento:</label>
@@ -271,13 +280,14 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                           
                                       
                                         </div>
+                   </form>
          </div>
 
     </div>  
        
           <div id="datos_peticionario" class="form-group" style="display:none">
 
- 
+
 
             <div class="row">
                                     <div class="form-group has-success">
@@ -416,7 +426,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {name:'calle_y_numero',index:'calle_y_numero', editable: true, width:60,search:true,hidden: true},
                     {name:'colonia',index:'colonia', editable: true, width:60,search:true,hidden: true},
                     {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: false},
-                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: false,formatter:"select",edittype: 'select',editoptions: { value: ':Seleccione;Contactado:Contactado;N/A:N/A', defaultValue: 'IN' },
+                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: ':Seleccione;Contactado:Contactado;N/A:N/A', defaultValue: 'IN' },
                         stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Seleccione;Contactado:Contactado;N/A:N/A' }}
                   
                 ],
@@ -449,6 +459,9 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     $("#calle").val(rowData["calle_y_numero"]);
                     $("#colonia").val(rowData["colonia"]);
                     $("#municipio").val(rowData["municipio"]);
+                    $("#id_peticiones").val(rowData["id_peticiones"]);
+                    $("#status").val(rowData["status"]);
+                    
 
 
                             $("#datos_peticion").dialog('open');
@@ -488,10 +501,26 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     fluid: true, //new option
     resizable: false,     
                 buttons:[{
-                    id:"btnGuardar",
+                    id:"btnDato",
                     text:"Datos del peticionario",
                     click:function(){
                     $("#datos_peticionario").dialog('open');
+
+                       }
+                        		
+                    
+                },{
+                    id:"btnGuardar",
+                    text:"Guardar",
+                    click:function(){
+                    if (confirm('Desea cambiar los datos de la petición ?\n ')) { 
+                       $("#form_datos_peticion").submit();
+                        }
+                        else{
+                            
+                            alert('Se cancelo la actualización de la petición');
+                        }
+                                              $(this).dialog('close');
 
                        }
                         		
@@ -520,6 +549,59 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                   }  
                 } ]
     });
+            
+                   $("#form_datos_peticion").submit(function() {
+                var formObj = $(this);
+                var formData = new FormData(this);
+                var url = "<?php echo base_url();?>index.php/registro/updatePeticionesById"; 
+
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: formData, // de forma seriada los elementos del form
+                mimeType:"multipart/form-data",
+                contentType: false,
+                cache: false,
+                processData:false,
+                success: function(data)
+           {
+                var bandera=$.parseJSON(data);
+                if(bandera==true){
+                alert("Se actulizaron los datos exitosamente!");
+                    location.reload();
+                   /*  $.ajax({
+					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones",
+                    type:"POST",
+                    //dataType: 'json',
+                    
+					success: function(datos){
+                  
+                      
+                        $('#table_list_2').jqGrid('setGridParam', {data: datos, datatype: 'json'});
+                        $('#table_list_2').trigger('reloadGrid'); 
+
+					}
+                    
+				});*/
+
+
+                $("#datos_peticionario").dialog('close');
+                    
+
+                }else{
+                alert("Ocurrio un error al actualizar, intente de nuevo mas tarde.");
+                $("#datos_peticionario").dialog('close');
+
+                }
+         
+           }, 
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+                } 
+         });
+
+    return false; // evitar la ejecucion del form si algo falla
+           });
 
 
 // catch dialog if opened within a viewport smaller than the dialog width

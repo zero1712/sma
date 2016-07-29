@@ -338,7 +338,68 @@ class Registro extends CI_Controller {
         echo json_encode($data);
         
     }
+    
+    public function updatePeticionesById(){
+     $this->load->model('Peticiones_model');
+        
+        $tipo_de_peticion =$this->input->post("tipo");
+        $concepto=$this->input->post("concepto");
+        $unidad_de_medida =$this->input->post("unidad_de_medida");
+        $cantidad=$this->input->post("cantidad");
+        $rubro=$this->input->post("rubro");     
+        $prioridad=$this->input->post("prioridad");
+        $observaciones=$this->input->post("observaciones");
+        $peticion=$this->input->post("peticion"); 
+        $id_peticiones=$this->input->post("id_peticiones");
+        $status=$this->input->post("status");
+        if($tipo_de_peticion=="Materiales/Regalos/Obsequios"){
+           $tipo_de_peticion=1;     
+        }
+         if($tipo_de_peticion=="Laboral"){
+           $tipo_de_peticion=2;     
+        }
+         if($tipo_de_peticion=="Salud"){
+           $tipo_de_peticion=3;     
+        }
+          if($tipo_de_peticion=="Servicios Federales"){
+           $tipo_de_peticion=4;     
+        }
+        if($tipo_de_peticion=="Servicios Estatales"){
+           $tipo_de_peticion=5;     
+        } 
+        if($tipo_de_peticion=="Servicios Municipales"){
+           $tipo_de_peticion=6;     
+        } 
+        if($prioridad=="Urgente"){
+           $prioridad=1;     
+        } 
+        if($prioridad=="Regular"){
+           $prioridad=2;     
+        }
+         if($status=="Contactado"){
+           $status=1;     
+        } 
+        if($status=="N/A"){
+           $status=2;     
+        }
+        $data=array(
+            "tipo_de_peticion"=>$tipo_de_peticion,
+            "concepto"=>$concepto,
+            "unidad_de_medida"=>$unidad_de_medida,
+            "cantidad"=>$cantidad,
+            "rubro"=>$rubro,
+            "prioridad"=>$prioridad,
+            "observaciones"=>$observaciones,
+            "peticion"=>$peticion,
+            "id_peticiones"=>$id_peticiones,
+            "status"=>$status
+        
+        );
+        $this->Peticiones_model->updatePeticionesById($data);
+        echo json_encode(true);
 
+
+    }
   public function logout(){
 		$this->session->unset_userdata("admin_login");
 		$this->load->view('login/login');
