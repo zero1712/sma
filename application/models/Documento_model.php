@@ -6,11 +6,11 @@ class Documento_model extends CI_Model
       $this->db->insert("documento",$data);
   }
   
+    //metodo para obtener el ID de un documento por la coincidencia de todos los datos
+    
       function getIdDocumento($data){
       
-      $this->db->where('fecha_documento',$data['fecha_documento']);
-      $this->db->where('tipo_documento',$data['tipo_documento']);
-      $this->db->where('numero_documento',$data['numero_documento']);
+      $this->db->where('microfecha',$data['microfecha']);
       $this->db->select('id_documento');
       $query=$this->db->get('documento');
     
@@ -20,6 +20,8 @@ class Documento_model extends CI_Model
       return $idDocumento;
         
   }
+    ////
+  
 }
      
         

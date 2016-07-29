@@ -7,11 +7,8 @@ class Datos_generales_model extends CI_Model
 
   function getIdDatosGenerales($data){
       
-      $this->db->where('nombre',$data['nombre']);
-      $this->db->where('ap_paterno',$data['ap_paterno']);
-      $this->db->where('ap_materno',$data['ap_materno']);
-     // $this->db->where('cargo',$data['cargo']);///GIBRAN: comente esto porque peticiones no tiene cargo, y al hacer get, siempre me traia un null porque no se cumplia esto, al comentarlo ya funciona, otra opcion es crear un nuevo metodo.
-      $this->db->where('tel_celular',$data['tel_celular']);
+     
+      $this->db->where('microfecha',$data['microfecha']);
       $this->db->select('id_datos_generales');
       $query=$this->db->get('datos_generales');
     

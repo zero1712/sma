@@ -8,7 +8,7 @@
 
     <title>Atención de la demanda ciudadana | Registro</title>
 
-       <link href="css/bootstrap.min.css" rel="stylesheet">
+       <link href="<?php echo base_url();?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo base_url();?>font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <link href="<?php echo base_url();?>css/plugins/iCheck/custom.css" rel="stylesheet">
@@ -103,8 +103,42 @@
     <script src="<?php echo base_url();?>js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
 
-        
- 
+<!-- ------------------------------------Validaciones------------------------------- -->       
+ <script>
+      function aMays(e, elemento) {
+                        tecla=(document.all) ? e.keyCode : e.which; 
+                        elemento.value = elemento.value.toUpperCase();
+                        }
+           function justNumbers(e)
+        {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+         
+        return /\d/.test(String.fromCharCode(keynum));
+        }
+     
+           function soloLetras(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+    }
+    
+    
+ </script>
     
 <!-- -------------------------- Script de funcionalidad y validaciones BuscarV  ------------------------------ -->
     <script>
@@ -163,11 +197,53 @@
                 if($('#colonia_evento').val()=='99'){
                     $('#label_colonia').attr('style','display: block');  
                     $('#colonia_input').attr('style','display: block');
-            
+                    $('#label_municipio_agenda').attr('style','display: block');  
+                    $('#municipio_input_agenda').attr('style','display: block');  
+             
+
                                                       }
                 if($('#colonia_evento').val()!='99'){
                     $('#label_colonia').attr('style','display: none');  
                     $('#colonia_input').attr('style','display: none');
+                    $('#label_municipio_agenda').attr('style','display: none');  
+                    $('#municipio_input_agenda').attr('style','display: none');  
+                 
+            
+                                                        }
+      
+          
+                                                    });
+             $('#colonia_audiencia').on('change', function() {
+                if($('#colonia_audiencia').val()=='99'){
+                    $('#label_colonia_audiencia').attr('style','display: block');  
+                    $('#colonia_input_audiencia').attr('style','display: block');
+                    $('#label_municipio_audiencia').attr('style','display: block');  
+                    $('#municipio_input_audiencia').attr('style','display: block');  
+            
+                                                      }
+                if($('#colonia_audiencia').val()!='99'){
+                    $('#label_colonia_audiencia').attr('style','display: none');  
+                    $('#colonia_input_audiencia').attr('style','display: none');
+                    $('#label_municipio_audiencia').attr('style','display: none');  
+                    $('#municipio_input_audiencia').attr('style','display: none');  
+            
+                                                        }
+      
+          
+                                                    });
+                   $('#colonia_peticion').on('change', function() {
+                if($('#colonia_peticion').val()=='99'){
+                    $('#label_colonia_peticion').attr('style','display: block');  
+                    $('#colonia_input_peticion').attr('style','display: block');
+                      $('#label_municipio_peticion').attr('style','display: block');  
+                    $('#municipio_input_peticion').attr('style','display: block');  
+            
+                                                      }
+                if($('#colonia_peticion').val()!='99'){
+                    $('#label_colonia_peticion').attr('style','display: none');  
+                    $('#colonia_input_peticion').attr('style','display: none');
+                      $('#label_municipio_peticion').attr('style','display: none');  
+                    $('#municipio_input_peticion').attr('style','display: none');
             
                                                         }
       
@@ -187,16 +263,18 @@
       
           
                                                     });
-            $('input:radio[name="radio_tipo_escrito"]').change(
+            $('input:radio[name="radio_tipo_escrito1"]').change(
             function(){
-                if($('input:radio[name="radio_tipo_escrito"]:checked').val()=='1'){
+                if($('input:radio[name="radio_tipo_escrito1"]:checked').val()=='1'){
                     $('#div_destinatario').attr('style','display: block');
                     
                 }
-                  if($('input:radio[name="radio_tipo_escrito"]:checked').val()=='2'){
+                  if($('input:radio[name="radio_tipo_escrito1"]:checked').val()=='2'){
                      $('#div_destinatario').attr('style','display: none');
                 }
                     });
+        
+                  
         
         //---------------------------------------Funcion botones--------------------------------//
         
@@ -252,9 +330,12 @@
                 success: function(data)
            {
                
-                 var idDocumento= $.parseJSON(data);
                
-                
+                 var idDocumento= $.parseJSON(data);
+                 if(idDocumento=='AQUI ENTRO EN EL ERROR'){
+                     alert("Fallo registro debido a que:\nFolio de documento,\nNumero de documento,\nFecha de documento,\n\nSon vacios, llene los respectivos campos.");
+                 }else{
+                    
                  if($("#tipo_documento").val()==1){
                  $("#idDocumento_hide").val(idDocumento);
                  $("#form_datos_agenda").submit();
@@ -267,7 +348,7 @@
                  $("#idDocumento_hide2").val(idDocumento);
                  $("#form_datos_peticiones").submit();
                  }
-         
+         }
            }, 
                 error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
@@ -345,6 +426,7 @@
 
 //empieza boton registrar peticiones
         $('#btt_registrar_peticiones').click(function() {
+           
             $("#form_documento").submit();
         });
          
@@ -714,21 +796,21 @@
                     <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">BuscarV</strong>
-                             </span> <span class="text-muted text-xs block">Test <b class="caret"></b></span> </span> </a>
+                             </span> <span class="text-muted text-xs block">Prueba <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="#">Salir</a></li>
                             </ul>
                     </div>
                     <div class="logo-element">
-                        IN+
+                       SMA+
                     </div>
                 </li>
                 <li class="active">
-                    <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Consulta</span></a>
+
                 </li>
-                <li>
-                    <a href="minor.html"><i class="fa fa-th-large"></i> <span class="nav-label">Minor view</span> </a>
-                </li>
+
             </ul>
 
         </div>
@@ -747,7 +829,7 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <a href="#">
+                        <a href="<?php echo base_url();?>index.php/registro/logout">
                             <i class="fa fa-sign-out"></i> Salir
                         </a>
                     </li>
@@ -808,19 +890,19 @@
                                         <label class="col-sm-2 control-label">Nombre:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="nombre_audiencia" name="nombre_audiencia" class="form-control">
+                                            <input type="text" id="nombre_audiencia" name="nombre_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Apellido paterno:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="apellidop_audiencia" name="apellidop_audiencia" class="form-control">
+                                            <input type="text" id="apellidop_audiencia" name="apellidop_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
                                         </div>
                                         <label class="col-sm-2 control-label">Apellido materno:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="apellidom_audiencia" name="apellidom_audiencia" class="form-control">
+                                            <input type="text" id="apellidom_audiencia" name="apellidom_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
                                         </div>
                                     </div>
                                         <div class="hr-line-dashed"></div>
@@ -833,18 +915,18 @@
                                            <label class="col-sm-2 control-label">Cargo:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="cargo_audiencia" name="cargo_audiencia" class="form-control">
+                                            <input type="text" id="cargo_audiencia" name="cargo_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Celular:</label>
                                          <div class="col-sm-4">
-                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="celular_audiencia" name="celular_audiencia" placeholder="722-XXX-XXX" class="form-control"></div>
+                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="celular_audiencia" name="celular_audiencia" placeholder="722-XXX-XXX" class="form-control" onkeypress="return justNumbers(event);"></div>
                                         </div>
                                           <label class="col-sm-2 control-label">Casa:</label>
                                          <div class="col-sm-4">
-                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="casa_audiencia" name="casa_audiencia" placeholder="722-XXX-XXX" class="form-control"></div>
+                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="casa_audiencia" name="casa_audiencia" placeholder="722-XXX-XXX" class="form-control" onkeypress="return justNumbers(event);"></div>
                                         </div>
                                           </div>
                                         <div class="hr-line-dashed"></div>
@@ -852,68 +934,79 @@
                                         <label class="col-sm-2 control-label">Calle y Numero:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="callenumero_audiencia" name="callenumero_audiencia" class="form-control">
+                                            <input type="text" id="callenumero_audiencia" name="callenumero_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
                                         </div>
                                           </div>
                                                   <div class="form-group"><label class="col-sm-2 control-label" for="tipo_registro">Colonia de audiencia:</label>
 
                                         <div class="col-sm-10">
                                             <select class="form-control m-b" name="colonia_audiencia" id="colonia_audiencia">
-                                                  <option  value="0">Seleccione</option>
-                                                  <option  value="1">La Concepción</option>
-                                                  <option  value="2">San Francisco</option>
-                                                  <option  value="3">Guadalupe</option>
-                                                  <option  value="4">San Juan</option>
-                                                  <option  value="5">San Isidro</option>
-                                                  <option  value="6">San Lucas</option>
-                                                  <option  value="7">La Magdalena</option>
-                                                  <option  value="8">Santa María</option>
-                                                  <option  value="9">San Miguel</option>
-                                                  <option  value="10">San Nicolás</option>
-                                                  <option  value="11">San Pedro</option>
-                                                  <option  value="12">Santiago</option>
-                                                  <option  value="13">Álvaro Obregón</option>
-                                                  <option  value="14">Buenavista</option>
-                                                  <option  value="15">Emiliano Zapata</option>
-                                                  <option  value="16">Isidro Fabela</option>
-                                                  <option  value="17">Reforma</option>
-                                                  <option  value="18">Alfredo del Mazo</option>
-                                                  <option  value="19">Francisco I. Madero</option>
-                                                  <option  value="20">Santa Elena</option>
-                                                  <option  value="21">Villas de Atenco</option>
-                                                  <option  value="22">Carlos Hank González</option>
-                                                  <option  value="23">El Fortín</option>
-                                                  <option  value="24">Angel I</option>
-                                                  <option  value="25">Angel II</option>
-                                                  <option  value="26">Angel III</option>
-                                                  <option  value="27">El Rosendal</option>
-                                                  <option  value="28">Las Magdalenas III</option>
-                                                  <option  value="29">El Dorado I</option>
-                                                  <option  value="30">El Dorado II</option>
-                                                  <option  value="31">Vista Verde</option>
-                                                  <option  value="32">Las Magdalenas IV</option>
-                                                  <option  value="33">Pavitac</option>
-                                                  <option  value="34">Residencial Santa María</option>
-                                                  <option  value="35">Los Perales</option>
-                                                  <option  value="36">Alborada II</option>
-                                                  <option  value="37">Villas La Magdalena</option>
-                                                  <option  value="38">Villas La Magdalena II</option>
-                                                  <option  value="39">Inmobiliaria Libra</option>
-                                                  <option  value="40">Cipreses Residencial</option>
-                                                  <option  value="41">El Encanto I</option>
-                                                  <option  value="42">El Encanto II</option>
-                                                  <option  value="43">Residencial Olmos</option>
+                                          <option  value="0">Seleccione</option>
+                                                    <option  value="La Concepción">La Concepción</option>
+                                                  <option  value="San Francisco">San Francisco</option>
+                                                  <option  value="Guadalupe">Guadalupe</option>
+                                                  <option  value="San Juan">San Juan</option>
+                                                  <option  value="San Isidro">San Isidro</option>
+                                                  <option  value="San Lucas">San Lucas</option>
+                                                  <option  value="La Magdalena">La Magdalena</option>
+                                                  <option  value="Santa María">Santa María</option>
+                                                  <option  value="San Miguel">San Miguel</option>
+                                                  <option  value="San Nicolás">San Nicolás</option>
+                                                  <option  value="San Pedro">San Pedro</option>
+                                                  <option  value="Santiago">Santiago</option>
+                                                  <option  value="Álvaro Obregón">Álvaro Obregón</option>
+                                                  <option  value="Buenavista">Buenavista</option>
+                                                  <option  value="Emiliano Zapata">Emiliano Zapata</option>
+                                                  <option  value="Isidro Fabela">Isidro Fabela</option>
+                                                  <option  value="Reforma">Reforma</option>
+                                                  <option  value="Alfredo del Mazo">Alfredo del Mazo</option>
+                                                  <option  value="Francisco I. Madero">Francisco I. Madero</option>
+                                                  <option  value="Santa Elena">Santa Elena</option>
+                                                  <option  value="Villas de Atenco">Villas de Atenco</option>
+                                                  <option  value="Carlos Hank González">Carlos Hank González</option>
+                                                  <option  value="El Fortín">El Fortín</option>
+                                                  <option  value="Angel I">Angel I</option>
+                                                  <option  value="Angel II">Angel II</option>
+                                                  <option  value="Angel III">Angel III</option>
+                                                  <option  value="El Rosendal">El Rosendal</option>
+                                                  <option  value="Las Magdalenas III">Las Magdalenas III</option>
+                                                  <option  value="El Dorado I">El Dorado I</option>
+                                                  <option  value="El Dorado II">El Dorado II</option>
+                                                  <option  value="Vista Verde">Vista Verde</option>
+                                                  <option  value="Las Magdalenas IV">Las Magdalenas IV</option>
+                                                  <option  value="Pavitac">Pavitac</option>
+                                                  <option  value="Residencial Santa María">Residencial Santa María</option>
+                                                  <option  value="Los Perales">Los Perales</option>
+                                                  <option  value="Alborada II">Alborada II</option>
+                                                  <option  value="Villas La Magdalena">Villas La Magdalena</option>
+                                                  <option  value="Villas La Magdalena II">Villas La Magdalena II</option>
+                                                  <option  value="Inmobiliaria Libra">Inmobiliaria Libra</option>
+                                                  <option  value="Cipreses Residencial">Cipreses Residencial</option>
+                                                  <option  value="El Encanto I">El Encanto I</option>
+                                                  <option  value="El Encanto II">El Encanto II</option>
+                                                  <option  value="Residencial Olmos">Residencial Olmos</option>
                                                   <option  value="99">Otro</option>
                                             </select>
                                         
                                         </div>
+                                       <label id="label_colonia_audiencia" class="col-sm-2 control-label " style="display:none">Colonia:</label>
+
+                                        <div id="colonia_input_audiencia" class="col-sm-4" style="display:none">
+                                            <input type="text" id="colonia_audiencia2" name="colonia_audiencia2" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
+                                        </div>
+                                                     <label id="label_municipio_audiencia" class="col-sm-2 control-label " style="display:none">Municipio:</label>
+
+                                        <div id="municipio_input_audiencia" name="municipio_input_audiencia" class="col-sm-4" style="display:none">
+                                            <input type="text" id="municipio_audiencia" name="municipio_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
+                                        </div>
                                     </div>
+                                           
                                      <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Asunto de la audiencia:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea id="asunto_audiencia" name="asunto_audiencia" class="form-control" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea id="asunto_audiencia" name="asunto_audiencia" class="form-control" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)" ></textarea>                                                                                </div>
                                     </div>
                                                                                <div class="hr-line-dashed"></div>
 
@@ -921,7 +1014,7 @@
                                         <label class="col-sm-2 control-label">Seguimiento:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea id="seguimiento_audiencia" name="seguimiento_audiencia" class="form-control" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea id="seguimiento_audiencia" name="seguimiento_audiencia" class="form-control" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)" ></textarea>                                                                                </div>
                                     </div>
                                     </form>
                                                                          <div class="hr-line-dashed"></div>
@@ -933,7 +1026,7 @@
                                             
                                                 <div clas="col-sm-6">
                                                     <div class="form-group">
-                                                    <button class="btn btn-info" id="btt_limpiar_audiencia" name="btt_limpiar_audiencia" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                        <a href="javascript:location.reload()"> <button class="btn btn-info" id="btt_limpiar_audiencia" name="btt_limpiar_audiencia" type="button"><i class="fa fa-paste"></i> Limpiar</button></a>
                                                     <button class="btn btn-primary" id="btt_registrar_audiencia" id="btt_registrar_audiencia"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
                                                     </div>
                                                 </div>        
@@ -968,20 +1061,29 @@
                                         </div>
                                     </div>
                                              
-                                            <div class="form-group" id="fecha_documento">
+                                            <div class="form-group" >
                                         <label class="col-sm-2 control-label">Numero de documento:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="numero_documento" name="numero_documento" class="form-control">
+                                            <input type="text" id="numero_documento" name="numero_documento" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
-                                      <label class="col-sm-2 control-label">Fecha de documento: </label>
+                                        <label class="col-sm-2 control-label">Folio:</label>
+
                                         <div class="col-sm-4">
+                                            <input type="text" id="folio_documento" name="folio_documento" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                 
+                                    </div>
+                                          
+                                    <div class="form-group" id="fecha_documento">
+                                               <label class="col-sm-2 control-label">Fecha de documento: </label>
+                                        <div class="col-sm-10">
                                             
                                             <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" id="fecha_documento" name="fecha_documento" class="form-control">
                                             </div>
                                          </div>
-                                    </div>
+                                          </div>       
                                                              <div class="hr-line-dashed"></div>
                                     </form>
 
@@ -992,7 +1094,7 @@
                                         <label class="col-sm-2 control-label">Remitente:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="remitente_agenda" name="remitente_agenda" class="form-control">
+                                            <input type="text" id="remitente_agenda" name="remitente_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
                                         </div>
                                     </div>
                                 
@@ -1001,7 +1103,15 @@
                                         <label class="col-sm-2 control-label">Cargo:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="cargo_agenda" name="cargo_agenda" class="form-control">
+                                            <input type="text" id="cargo_agenda" name="cargo_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                    </div>
+                                                  <div class="hr-line-dashed"></div>
+                               <div class="form-group">
+                                        <label class="col-sm-2 control-label">Dependencia:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" id="dependencia_agenda" name="dependencia_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>
                                           <div class="ibox-title">
@@ -1018,7 +1128,7 @@
                                         <label class="col-sm-2 control-label">Nombre del evento:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="nombre_evento_agenda" name="nombre_evento_agenda" class="form-control">
+                                            <input type="text" id="nombre_evento_agenda" name="nombre_evento_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>
                                         <div class="hr-line-dashed"></div>
@@ -1047,14 +1157,14 @@
                                         <label class="col-sm-2 control-label">Descripcion del evento:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea id="descripcion_evento_agenda" name="descripcion_evento_agenda" class="form-control" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea id="descripcion_evento_agenda" name="descripcion_evento_agenda" class="form-control" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
                                     </div>
                                           <div class="hr-line-dashed"></div>
                                              <div class="form-group">
                                         <label class="col-sm-2 control-label">Calle y Numero:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="callenumero_agenda" name="callenumero_agenda" class="form-control">
+                                            <input type="text" id="callenumero_agenda" name="callenumero_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                           </div>
                                                 <div id="div_select_colonia">
@@ -1063,57 +1173,62 @@
                                         <div class="col-sm-10">
                                             <select class="form-control m-b"  name="colonia_evento" id="colonia_evento">
                                                    <option  value="0">Seleccione</option>
-                                                  <option  value="1">La Concepción</option>
-                                                  <option  value="2">San Francisco</option>
-                                                  <option  value="3">Guadalupe</option>
-                                                  <option  value="4">San Juan</option>
-                                                  <option  value="5">San Isidro</option>
-                                                  <option  value="6">San Lucas</option>
-                                                  <option  value="7">La Magdalena</option>
-                                                  <option  value="8">Santa María</option>
-                                                  <option  value="9">San Miguel</option>
-                                                  <option  value="10">San Nicolás</option>
-                                                  <option  value="11">San Pedro</option>
-                                                  <option  value="12">Santiago</option>
-                                                  <option  value="13">Álvaro Obregón</option>
-                                                  <option  value="14">Buenavista</option>
-                                                  <option  value="15">Emiliano Zapata</option>
-                                                  <option  value="16">Isidro Fabela</option>
-                                                  <option  value="17">Reforma</option>
-                                                  <option  value="18">Alfredo del Mazo</option>
-                                                  <option  value="19">Francisco I. Madero</option>
-                                                  <option  value="20">Santa Elena</option>
-                                                  <option  value="21">Villas de Atenco</option>
-                                                  <option  value="22">Carlos Hank González</option>
-                                                  <option  value="23">El Fortín</option>
-                                                  <option  value="24">Angel I</option>
-                                                  <option  value="25">Angel II</option>
-                                                  <option  value="26">Angel III</option>
-                                                  <option  value="27">El Rosendal</option>
-                                                  <option  value="28">Las Magdalenas III</option>
-                                                  <option  value="29">El Dorado I</option>
-                                                  <option  value="30">El Dorado II</option>
-                                                  <option  value="31">Vista Verde</option>
-                                                  <option  value="32">Las Magdalenas IV</option>
-                                                  <option  value="33">Pavitac</option>
-                                                  <option  value="34">Residencial Santa María</option>
-                                                  <option  value="35">Los Perales</option>
-                                                  <option  value="36">Alborada II</option>
-                                                  <option  value="37">Villas La Magdalena</option>
-                                                  <option  value="38">Villas La Magdalena II</option>
-                                                  <option  value="39">Inmobiliaria Libra</option>
-                                                  <option  value="40">Cipreses Residencial</option>
-                                                  <option  value="41">El Encanto I</option>
-                                                  <option  value="42">El Encanto II</option>
-                                                  <option  value="43">Residencial Olmos</option>
+                                                    <option  value="La Concepción">La Concepción</option>
+                                                  <option  value="San Francisco">San Francisco</option>
+                                                  <option  value="Guadalupe">Guadalupe</option>
+                                                  <option  value="San Juan">San Juan</option>
+                                                  <option  value="San Isidro">San Isidro</option>
+                                                  <option  value="San Lucas">San Lucas</option>
+                                                  <option  value="La Magdalena">La Magdalena</option>
+                                                  <option  value="Santa María">Santa María</option>
+                                                  <option  value="San Miguel">San Miguel</option>
+                                                  <option  value="San Nicolás">San Nicolás</option>
+                                                  <option  value="San Pedro">San Pedro</option>
+                                                  <option  value="Santiago">Santiago</option>
+                                                  <option  value="Álvaro Obregón">Álvaro Obregón</option>
+                                                  <option  value="Buenavista">Buenavista</option>
+                                                  <option  value="Emiliano Zapata">Emiliano Zapata</option>
+                                                  <option  value="Isidro Fabela">Isidro Fabela</option>
+                                                  <option  value="Reforma">Reforma</option>
+                                                  <option  value="Alfredo del Mazo">Alfredo del Mazo</option>
+                                                  <option  value="Francisco I. Madero">Francisco I. Madero</option>
+                                                  <option  value="Santa Elena">Santa Elena</option>
+                                                  <option  value="Villas de Atenco">Villas de Atenco</option>
+                                                  <option  value="Carlos Hank González">Carlos Hank González</option>
+                                                  <option  value="El Fortín">El Fortín</option>
+                                                  <option  value="Angel I">Angel I</option>
+                                                  <option  value="Angel II">Angel II</option>
+                                                  <option  value="Angel III">Angel III</option>
+                                                  <option  value="El Rosendal">El Rosendal</option>
+                                                  <option  value="Las Magdalenas III">Las Magdalenas III</option>
+                                                  <option  value="El Dorado I">El Dorado I</option>
+                                                  <option  value="El Dorado II">El Dorado II</option>
+                                                  <option  value="Vista Verde">Vista Verde</option>
+                                                  <option  value="Las Magdalenas IV">Las Magdalenas IV</option>
+                                                  <option  value="Pavitac">Pavitac</option>
+                                                  <option  value="Residencial Santa María">Residencial Santa María</option>
+                                                  <option  value="Los Perales">Los Perales</option>
+                                                  <option  value="Alborada II">Alborada II</option>
+                                                  <option  value="Villas La Magdalena">Villas La Magdalena</option>
+                                                  <option  value="Villas La Magdalena II">Villas La Magdalena II</option>
+                                                  <option  value="Inmobiliaria Libra">Inmobiliaria Libra</option>
+                                                  <option  value="Cipreses Residencial">Cipreses Residencial</option>
+                                                  <option  value="El Encanto I">El Encanto I</option>
+                                                  <option  value="El Encanto II">El Encanto II</option>
+                                                  <option  value="Residencial Olmos">Residencial Olmos</option>
                                                   <option  value="99">Otro</option>
                                             </select>
                                         
                                         </div>
                             <label id="label_colonia" class="col-sm-2 control-label " style="display:none">Colonia:</label>
 
-                                        <div id="colonia_input" class="col-sm-10" style="display:none">
-                                            <input type="text" id="colonia_agenda" name="colonia_agenda" class="form-control">
+                                        <div id="colonia_input" class="col-sm-4" style="display:none">
+                                            <input type="text" id="colonia_agenda" name="colonia_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                                                     <label id="label_municipio_agenda" class="col-sm-2 control-label " style="display:none">Municipio:</label>
+
+                                        <div id="municipio_input_agenda" name="municipio_input_agenda" class="col-sm-4" style="display:none">
+                                            <input type="text" id="municipio_agenda" name="municipio_agenda" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
                                         </div>
                                                       </div>
                                       
@@ -1123,19 +1238,13 @@
                                          
                                     </div>
                                               
-                                             <div class="form-group">
-                                        <label class="col-sm-2 control-label">Municipio:</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" id="municipio_agenda" name="municipio_agenda" class="form-control">
-                                        </div>
-                                          </div>
+                                     
                                      <div class="hr-line-dashed"></div>
                                      <div class="form-group">
                                         <label class="col-sm-2 control-label">Asistentes aproximados:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="asistentes_aproximados" name="asistentes_aproximados" class="form-control">
+                                            <input type="text" id="asistentes_aproximados" name="asistentes_aproximados" class="form-control" onkeypress="return justNumbers(event);">
                                         </div>
                                           </div>
                                                                                <div class="hr-line-dashed"></div>
@@ -1162,10 +1271,16 @@
                                                         Federal
                                                     </label>
                                                 </div>
+                                           <div class="radio radio-danger">
+                                                    <input type="radio" name="tipo_evento" id="tipo_evento" value="4">
+                                                    <label for="tipo_evento">
+                                                        Personal
+                                                    </label>
+                                            </div>
                                             </div>
                                                     <label class="col-sm-2 control-label">Teléfono de contacto:</label>
                                          <div class="col-sm-4">
-                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="telefono_contacto_agenda" name="telefono_contacto_agenda" placeholder="722-XXX-XXX" class="form-control"></div>
+                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="telefono_contacto_agenda" name="telefono_contacto_agenda" placeholder="722-XXX-XXX" class="form-control" onkeypress="return justNumbers(event);"></div>
                                         </div>
                                       
                                         </div>
@@ -1179,7 +1294,7 @@
                                             
                                                 <div clas="col-sm-6">
                                                     <div class="form-group">
-                                                    <button class="btn btn-info" id="btt_limpiar_agenda_eventos" name="btt_limpiar_agenda_eventos" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                        <a href="javascript:location.reload()"><button class="btn btn-info" id="btt_limpiar_agenda_eventos" name="btt_limpiar_agenda_eventos" type="button"><i class="fa fa-paste"></i> Limpiar</button></a>
                                                     <button class="btn btn-primary" id="btt_registrar_agenda_eventos" id="btt_limpiar_agenda_eventos"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
                                                     </div>
                                                 </div>        
@@ -1194,7 +1309,7 @@
                                         <label class="col-sm-2 control-label">Remitente:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="remitente_administracion" name="remitente_administracion" class="form-control">
+                                            <input type="text" id="remitente_administracion" name="remitente_administracion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>
                                 
@@ -1203,7 +1318,15 @@
                                         <label class="col-sm-2 control-label">Cargo:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="cargo_administracion" name="cargo_administracion" class="form-control">
+                                            <input type="text" id="cargo_administracion" name="cargo_administracion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                    </div>
+                                          <div class="hr-line-dashed"></div>
+                                           <div class="form-group">
+                                        <label class="col-sm-2 control-label">Dependencia:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" id="dependencia_administracion" name="dependencia_administracion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>
                                                                                <div class="hr-line-dashed"></div>
@@ -1234,7 +1357,7 @@
                                         <label class="col-sm-2 control-label">Destinatario:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="destinatario_administracion" name="destinatario_administracion" class="form-control">
+                                            <input type="text" id="destinatario_administracion" name="destinatario_administracion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>
                                      
@@ -1245,7 +1368,7 @@
                                         <label class="col-sm-2 control-label">Asunto:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea class="form-control" id="asunto_administracion" name="asunto_administracion" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea class="form-control" id="asunto_administracion" name="asunto_administracion" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
                                     </div>
                                                   <div class="hr-line-dashed"></div>
             
@@ -1253,7 +1376,7 @@
                                         <label class="col-sm-2 control-label">Seguimiento:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea class="form-control" id="seguimiento_administracion" name="seguimiento_administracion" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea class="form-control" id="seguimiento_administracion" name="seguimiento_administracion" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
                                     </div>
                   <div class="hr-line-dashed"></div>
                                     <div class="row">
@@ -1263,7 +1386,7 @@
                                             
                                                 <div clas="col-sm-6">
                                                     <div class="form-group">
-                                                    <button class="btn btn-info" id="btt_limpiar_administracion" name="btt_limpiar_administracion" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                        <a href="javascript:location.reload()"><button class="btn btn-info" id="btt_limpiar_administracion" name="btt_limpiar_administracion" type="button"><i class="fa fa-paste"></i> Limpiar</button></a>
                                                     <button class="btn btn-primary" id="btt_registrar_administracion" id="btt_registrar_administracion"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
                                                     </div>
                                                 </div>        
@@ -1282,7 +1405,7 @@
                                         <label class="col-sm-2 control-label">Peticionario nombre(s):</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text"  id="nombre_peticionario" name="nombre_peticionario" class="form-control">
+                                            <input type="text"  id="nombre_peticionario" name="nombre_peticionario" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
                                         </div>
                                     </div>
                                 
@@ -1291,26 +1414,114 @@
                                         <label class="col-sm-2 control-label">Peticionario A.Paterno:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="apellidop_peticionario" name="apellidop_peticionario" class="form-control">
+                                            <input type="text" id="apellidop_peticionario" name="apellidop_peticionario" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
                                         </div>
                                      <label class="col-sm-2 control-label">Peticionario A.Materno:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="apellidom_peticionario" name="apellidom_peticionario" class="form-control">
+                                            <input type="text" id="apellidom_peticionario" name="apellidom_peticionario" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
+                                           <div class="form-group">
+                                        <label class="col-sm-2 control-label">Peticionario cargo:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text"  id="cargo_peticionario" name="cargo_peticionario" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                        </div>
+                                    </div>
+                                                                            <div class="hr-line-dashed"></div>
+
 
                                       <div class="form-group">
                                         <label class="col-sm-2 control-label">Peticionario Celular:</label>
                                          <div class="col-sm-4">
-                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="celular_peticionario" name="celular_peticionario" placeholder="722-XXX-XXX" class="form-control"></div>
+                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text" id="celular_peticionario" name="celular_peticionario" placeholder="722-XXX-XXX" class="form-control" onkeypress="return justNumbers(event);"></div>
                                         </div>
                                           <label class="col-sm-2 control-label">Peticionario Casa Teléfono:</label>
                                          <div class="col-sm-4">
-                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text"  id="casa_peticionario" name="casa_peticionario" placeholder="722-XXX-XXX" class="form-control"></div>
+                                        <div class="input-group m-b"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span> <input type="text"  id="casa_peticionario" name="casa_peticionario" placeholder="722-XXX-XXX" class="form-control" onkeypress="return justNumbers(event);"></div>
                                         </div>
                                           </div>
+                                        <div class="hr-line-dashed"></div>
+                                          <div class="form-group">
+                                        <label class="col-sm-2 control-label">Calle y Numero:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" id="callenumero_peticion" name="callenumero_peticion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                          </div>
+                                                  <div class="form-group"><label class="col-sm-2 control-label" for="tipo_registro">Colonia del peticionario:</label>
+
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="colonia_peticion" id="colonia_peticion">
+                                          <option  value="0">Seleccione</option>
+                                                    <option  value="La Concepción">La Concepción</option>
+                                                  <option  value="San Francisco">San Francisco</option>
+                                                  <option  value="Guadalupe">Guadalupe</option>
+                                                  <option  value="San Juan">San Juan</option>
+                                                  <option  value="San Isidro">San Isidro</option>
+                                                  <option  value="San Lucas">San Lucas</option>
+                                                  <option  value="La Magdalena">La Magdalena</option>
+                                                  <option  value="Santa María">Santa María</option>
+                                                  <option  value="San Miguel">San Miguel</option>
+                                                  <option  value="San Nicolás">San Nicolás</option>
+                                                  <option  value="San Pedro">San Pedro</option>
+                                                  <option  value="Santiago">Santiago</option>
+                                                  <option  value="Álvaro Obregón">Álvaro Obregón</option>
+                                                  <option  value="Buenavista">Buenavista</option>
+                                                  <option  value="Emiliano Zapata">Emiliano Zapata</option>
+                                                  <option  value="Isidro Fabela">Isidro Fabela</option>
+                                                  <option  value="Reforma">Reforma</option>
+                                                  <option  value="Alfredo del Mazo">Alfredo del Mazo</option>
+                                                  <option  value="Francisco I. Madero">Francisco I. Madero</option>
+                                                  <option  value="Santa Elena">Santa Elena</option>
+                                                  <option  value="Villas de Atenco">Villas de Atenco</option>
+                                                  <option  value="Carlos Hank González">Carlos Hank González</option>
+                                                  <option  value="El Fortín">El Fortín</option>
+                                                  <option  value="Angel I">Angel I</option>
+                                                  <option  value="Angel II">Angel II</option>
+                                                  <option  value="Angel III">Angel III</option>
+                                                  <option  value="El Rosendal">El Rosendal</option>
+                                                  <option  value="Las Magdalenas III">Las Magdalenas III</option>
+                                                  <option  value="El Dorado I">El Dorado I</option>
+                                                  <option  value="El Dorado II">El Dorado II</option>
+                                                  <option  value="Vista Verde">Vista Verde</option>
+                                                  <option  value="Las Magdalenas IV">Las Magdalenas IV</option>
+                                                  <option  value="Pavitac">Pavitac</option>
+                                                  <option  value="Residencial Santa María">Residencial Santa María</option>
+                                                  <option  value="Los Perales">Los Perales</option>
+                                                  <option  value="Alborada II">Alborada II</option>
+                                                  <option  value="Villas La Magdalena">Villas La Magdalena</option>
+                                                  <option  value="Villas La Magdalena II">Villas La Magdalena II</option>
+                                                  <option  value="Inmobiliaria Libra">Inmobiliaria Libra</option>
+                                                  <option  value="Cipreses Residencial">Cipreses Residencial</option>
+                                                  <option  value="El Encanto I">El Encanto I</option>
+                                                  <option  value="El Encanto II">El Encanto II</option>
+                                                  <option  value="Residencial Olmos">Residencial Olmos</option>
+                                                  <option  value="99">Otro</option>
+                                            </select>
+                                        
+                                        </div>
+                                       <label id="label_colonia_peticion" class="col-sm-2 control-label " style="display:none">Colonia:</label>
+
+                                        <div id="colonia_input_peticion" class="col-sm-4" style="display:none">
+                                            <input type="text" id="colonia_peticion2" name="colonia_peticion2" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                                             <label id="label_municipio_peticion" class="col-sm-2 control-label " style="display:none">Municipio:</label>
+
+                                        <div id="colonia_input_peticion" class="col-sm-14" style="display:none">
+                                            <input type="text" id="municipio_peticion" name="municipio_peticion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                        </div>
+                                                      
+                                                      
+                                                                        <label id="label_municipio_peticion" class="col-sm-2 control-label " style="display:none">Municipio:</label>
+
+                                        <div id="municipio_input_peticion" name="municipio_input_peticion" class="col-sm-4" style="display:none">
+                                            <input type="text" id="municipio_peticion" name="municipio_peticion" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
+                                        </div>
+                                    </div>
+                                           
                                      
                                          <div class="hr-line-dashed"></div>
             
@@ -1318,7 +1529,7 @@
                                         <label class="col-sm-2 control-label">Petición:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea class="form-control" id="peticion_peticionario" name="peticion_peticionario" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea class="form-control" id="peticion_peticionario" name="peticion_peticionario" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
                                     </div>
                                                                                <div class="hr-line-dashed"></div>
                                     
@@ -1332,6 +1543,7 @@
                                                 <option  value="3">Salud</option>
                                                 <option  value="4">Servicios Federales</option>
                                                 <option  value="5">Servicios Estatales</option>
+                                                <option  value="6">Servicios Municipales</option>
 
                                             </select>
                                         
@@ -1345,14 +1557,14 @@
                                         <label class="col-sm-2 control-label">Concepto:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="concepto_peticionario" name="concepto_peticionario" class="form-control">
+                                            <input type="text" id="concepto_peticionario" name="concepto_peticionario" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">  
                                         </div>
                                            
                                              
                                         <label class="col-sm-2 control-label">Cantidad:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="cantidad_peticionario" name="cantidad_peticionario" class="form-control">
+                                            <input type="text" id="cantidad_peticionario" name="cantidad_peticionario" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return justNumbers(event);">
                                         </div>
                                   
                                     </div>
@@ -1365,18 +1577,37 @@
                                         <div class="col-sm-10">
                                             <select class="form-control m-b" name="unidad_medida" id="unidad_medida">
                                                 <option  value="">Seleccione</option>
-                                                <option  value="Agenda/Eventos">Kilogramos</option>
-                                                <option  value="Administración">Tonelado</option>
-                                                <option  value="Peticiones">Pieza</option>
-                                                <option  value="Peticiones">Litros</option>
-                                                <option  value="Peticiones">Metros</option>
+                                                <option  value="Kilogramos">Kilogramos</option>
+                                                <option  value="Tonelada">Tonelada</option>
+                                                <option  value="Pieza">Pieza</option>
+                                                <option  value="Litros">Litros</option>
+                                                <option  value="Metros">Metros</option>
 
                                             </select>
                                         
                                         </div>
                          </div>
                                       
-                                                                                     <div class="hr-line-dashed"></div>
+                                                                                 <div class="hr-line-dashed"></div>
+                                    
+                                                                             <div class="form-group has-success"><label class="col-sm-2 control-label" for="tipo_rubro">Rubro:</label>
+
+                                        <div class="col-sm-10">
+                                            <select class="form-control m-b" name="tipo_rubro" id="tipo_rubro">
+                                                <option  value="0">Seleccione</option>
+                                                <option  value="Calles/Servicios">Ciudadano</option>
+                                                <option  value="Educación">Educación</option>
+                                                <option  value="Religioso">Religioso</option>
+                                                <option  value="Salud">Salud</option>
+                                                <option  value="Seguridad">Seguridad </option>
+                                                <option  value="Calles/Servicios">Calles/Servicios</option>
+                                            
+
+
+                                            </select>
+                                        
+                                        </div>
+                                    </div>                                           <div class="hr-line-dashed"></div>
                                       </div>
 
                                                                                                                       <div class="hr-line-dashed"></div>
@@ -1387,9 +1618,9 @@
 
                                         <div class="col-sm-10">
                                             <select class="form-control m-b" name="prioridad_peticionario" id="prioridad_peticionario">
-                                                <option  value="">Seleccione</option>
-                                                <option  value="Agenda/Eventos">Urgente</option>
-                                                <option  value="Administración">Regular</option>
+                                                <option  value="0">Seleccione</option>
+                                                <option  value="1">Urgente</option>
+                                                <option  value="2">Regular</option>
                                             </select>
                                         
                                         </div>
@@ -1403,7 +1634,7 @@
                                         <label class="col-sm-2 control-label">Observaciones:</label>
 
                                         <div class="col-sm-10">
-                                                <textarea class="form-control" id="observaciones_peticionario" name="observaciones_peticionario" rows="5" id="comment"></textarea>                                                                                </div>
+                                                <textarea class="form-control" id="observaciones_peticionario" name="observaciones_peticionario" rows="5" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
                                     </div>
                  <div class="hr-line-dashed"></div>
                                     <div class="row">
@@ -1413,7 +1644,7 @@
                                             
                                                 <div clas="col-sm-6">
                                                     <div class="form-group">
-                                                    <button class="btn btn-info" id="btt_limpiar_peticiones" name="btt_limpiar_peticiones" type="button"><i class="fa fa-paste"></i> Limpiar</button>
+                                                        <a href="javascript:location.reload()"> <button class="btn btn-info" id="btt_limpiar_peticiones" name="btt_limpiar_peticiones" type="button"><i class="fa fa-paste"></i> Limpiar</button></a>
                                                     <button class="btn btn-primary" id="btt_registrar_peticiones" id="btt_registrar_peticiones"  type="button"><i class="fa fa-check"></i>&nbsp;Registrar</button>
                                                     </div>
                                                 </div>        
