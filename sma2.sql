@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
+-- version 4.6.2
+-- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-07-2016 a las 23:29:06
--- Versión del servidor: 5.6.21
--- Versión de PHP: 5.5.19
+-- Host: localhost
+-- Generation Time: Jul 29, 2016 at 06:53 AM
+-- Server version: 5.7.13-log
+-- PHP Version: 5.6.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,20 +14,20 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `sma`
+-- Database: `sma`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `administracion`
+-- Table structure for table `administracion`
 --
 
-CREATE TABLE IF NOT EXISTS `administracion` (
-`id_administracion` int(11) NOT NULL,
+CREATE TABLE `administracion` (
+  `id_administracion` int(11) NOT NULL,
   `tipo_de_escrito` int(11) NOT NULL,
   `seguimiento` varchar(1000) NOT NULL,
   `remitente` varchar(1000) NOT NULL,
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `administracion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `agenda_eventos`
+-- Table structure for table `agenda_eventos`
 --
 
-CREATE TABLE IF NOT EXISTS `agenda_eventos` (
-`id_agenda_eventos` int(11) NOT NULL,
+CREATE TABLE `agenda_eventos` (
+  `id_agenda_eventos` int(11) NOT NULL,
   `fecha_de_evento` date NOT NULL,
   `calle_y_numero` varchar(500) NOT NULL,
   `hora` time NOT NULL,
@@ -63,10 +63,10 @@ CREATE TABLE IF NOT EXISTS `agenda_eventos` (
   `id_documento` int(11) NOT NULL,
   `fecha_entrada` datetime NOT NULL,
   `allDay` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `agenda_eventos`
+-- Dumping data for table `agenda_eventos`
 --
 
 INSERT INTO `agenda_eventos` (`id_agenda_eventos`, `fecha_de_evento`, `calle_y_numero`, `hora`, `municipio`, `asistentes_aproximados`, `tipo_de_evento`, `nombre_evento`, `descripcion_evento`, `remitente`, `cargo`, `dependencia`, `telefono_contacto`, `colonia_evento`, `id_documento`, `fecha_entrada`, `allDay`) VALUES
@@ -79,20 +79,20 @@ INSERT INTO `agenda_eventos` (`id_agenda_eventos`, `fecha_de_evento`, `calle_y_n
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `audiencias`
+-- Table structure for table `audiencias`
 --
 
-CREATE TABLE IF NOT EXISTS `audiencias` (
-`id_audiencia` int(11) NOT NULL,
+CREATE TABLE `audiencias` (
+  `id_audiencia` int(11) NOT NULL,
   `asunto_de_audiencia` varchar(500) NOT NULL,
   `fecha_audiencia` date NOT NULL,
   `seguimiento` varchar(1000) NOT NULL,
   `id_datos_generales` int(11) NOT NULL,
   `fecha_entrada` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `audiencias`
+-- Dumping data for table `audiencias`
 --
 
 INSERT INTO `audiencias` (`id_audiencia`, `asunto_de_audiencia`, `fecha_audiencia`, `seguimiento`, `id_datos_generales`, `fecha_entrada`) VALUES
@@ -102,11 +102,11 @@ INSERT INTO `audiencias` (`id_audiencia`, `asunto_de_audiencia`, `fecha_audienci
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `datos_generales`
+-- Table structure for table `datos_generales`
 --
 
-CREATE TABLE IF NOT EXISTS `datos_generales` (
-`id_datos_generales` int(11) NOT NULL,
+CREATE TABLE `datos_generales` (
+  `id_datos_generales` int(11) NOT NULL,
   `nombre` varchar(200) NOT NULL,
   `ap_paterno` varchar(200) NOT NULL,
   `ap_materno` varchar(200) NOT NULL,
@@ -118,10 +118,10 @@ CREATE TABLE IF NOT EXISTS `datos_generales` (
   `municipio` varchar(300) NOT NULL,
   `fecha_entrada` datetime NOT NULL,
   `microfecha` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `datos_generales`
+-- Dumping data for table `datos_generales`
 --
 
 INSERT INTO `datos_generales` (`id_datos_generales`, `nombre`, `ap_paterno`, `ap_materno`, `cargo`, `tel_celular`, `tel_casa`, `calle_y_numero`, `colonia`, `municipio`, `fecha_entrada`, `microfecha`) VALUES
@@ -143,21 +143,21 @@ INSERT INTO `datos_generales` (`id_datos_generales`, `nombre`, `ap_paterno`, `ap
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `documento`
+-- Table structure for table `documento`
 --
 
-CREATE TABLE IF NOT EXISTS `documento` (
-`id_documento` int(11) NOT NULL,
+CREATE TABLE `documento` (
+  `id_documento` int(11) NOT NULL,
   `fecha_documento` date NOT NULL,
   `tipo_documento` int(11) NOT NULL,
   `numero_documento` varchar(20) NOT NULL,
   `folio_documento` varchar(300) NOT NULL,
   `fecha_entrada` datetime NOT NULL,
   `microfecha` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `documento`
+-- Dumping data for table `documento`
 --
 
 INSERT INTO `documento` (`id_documento`, `fecha_documento`, `tipo_documento`, `numero_documento`, `folio_documento`, `fecha_entrada`, `microfecha`) VALUES
@@ -208,11 +208,11 @@ INSERT INTO `documento` (`id_documento`, `fecha_documento`, `tipo_documento`, `n
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `peticiones`
+-- Table structure for table `peticiones`
 --
 
-CREATE TABLE IF NOT EXISTS `peticiones` (
-`id_peticiones` int(11) NOT NULL,
+CREATE TABLE `peticiones` (
+  `id_peticiones` int(11) NOT NULL,
   `tipo_de_peticion` int(11) DEFAULT NULL,
   `peticion` varchar(1000) NOT NULL,
   `concepto` varchar(500) DEFAULT NULL,
@@ -223,160 +223,166 @@ CREATE TABLE IF NOT EXISTS `peticiones` (
   `observaciones` varchar(700) DEFAULT NULL,
   `id_datos_generales` int(11) DEFAULT NULL,
   `id_documento` int(11) NOT NULL,
-  `fecha_entrada` datetime NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  `fecha_entrada` datetime NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `peticiones`
+-- Dumping data for table `peticiones`
 --
 
-INSERT INTO `peticiones` (`id_peticiones`, `tipo_de_peticion`, `peticion`, `concepto`, `unidad_de_medida`, `rubro`, `cantidad`, `prioridad`, `observaciones`, `id_datos_generales`, `id_documento`, `fecha_entrada`) VALUES
-(1, 0, '', '', '', '0', 0, 0, '', 3, 13, '2016-07-22 06:11:00'),
-(2, 0, '', '', '', '0', 0, 0, '', 4, 29, '2016-07-22 00:11:23'),
-(3, 0, '', '', '', '0', 0, 0, '', 5, 30, '2016-07-22 00:12:24'),
-(4, 0, '', '', '', '0', 0, 0, '', 6, 31, '2016-07-22 00:20:36'),
-(5, 0, '', '', '', '0', 0, 0, '', 7, 32, '2016-07-22 00:20:36'),
-(6, 0, '', '', '', '0', 0, 0, '', 8, 34, '2016-07-22 00:20:38'),
-(7, 0, '', '', '', '0', 0, 0, '', 9, 33, '2016-07-22 00:20:39'),
-(8, 0, '', '', '', '0', 0, 0, '', 10, 35, '2016-07-22 00:31:37'),
-(9, 0, '', '', '', '0', 0, 0, '', 11, 39, '2016-07-22 00:53:43'),
-(10, 0, '', '', '', '0', 0, 0, '', 12, 41, '2016-07-22 00:55:25'),
-(11, 2, 'A', '', '', '0', 0, 1, 'A', 13, 42, '2016-07-22 00:58:22'),
-(12, 1, 'ESTO ES UNA PRUEBA', 'PRUEBA', 'Pieza', 'Educación', 1, 1, 'NADA ES UNA PRUEBA', 14, 43, '2016-07-25 22:43:17');
+INSERT INTO `peticiones` (`id_peticiones`, `tipo_de_peticion`, `peticion`, `concepto`, `unidad_de_medida`, `rubro`, `cantidad`, `prioridad`, `observaciones`, `id_datos_generales`, `id_documento`, `fecha_entrada`, `status`) VALUES
+(1, 0, '', '', '', '0', 0, 0, '', 3, 13, '2016-07-22 06:11:00', 0),
+(2, 0, '', '', '', '0', 0, 0, '', 4, 29, '2016-07-22 00:11:23', 0),
+(3, 0, '', '', '', '0', 0, 0, '', 5, 30, '2016-07-22 00:12:24', 0),
+(4, 0, '', '', '', '0', 0, 0, '', 6, 31, '2016-07-22 00:20:36', 0),
+(5, 0, '', '', '', '0', 0, 0, '', 7, 32, '2016-07-22 00:20:36', 0),
+(6, 0, '', '', '', '0', 0, 0, '', 8, 34, '2016-07-22 00:20:38', 0),
+(7, 0, '', '', '', '0', 0, 0, '', 9, 33, '2016-07-22 00:20:39', 0),
+(8, 0, '', '', '', '0', 0, 0, '', 10, 35, '2016-07-22 00:31:37', 0),
+(9, 0, '', '', '', '0', 0, 0, '', 11, 39, '2016-07-22 00:53:43', 0),
+(10, 0, '', '', '', '0', 0, 0, '', 12, 41, '2016-07-22 00:55:25', 0),
+(11, 2, 'A', '', '', '0', 0, 1, 'A', 13, 42, '2016-07-22 00:58:22', 0),
+(12, 1, 'ESTO ES UNA PRUEBA', 'PRUEBA', 'Pieza', 'Educación', 1, 1, 'NADA ES UNA PRUEBA', 14, 43, '2016-07-25 22:43:17', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
-CREATE TABLE IF NOT EXISTS `usuarios` (
-`idUsuario` int(11) NOT NULL,
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
   `usuario` varchar(300) NOT NULL,
   `password` varchar(300) NOT NULL,
   `privilegio` int(2) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`idUsuario`, `usuario`, `password`, `privilegio`) VALUES
 (1, 'test@buscarv.com.mx', '123456', 1);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `administracion`
+-- Indexes for table `administracion`
 --
 ALTER TABLE `administracion`
- ADD PRIMARY KEY (`id_administracion`), ADD KEY `ref_administracion_documento` (`id_documento`);
+  ADD PRIMARY KEY (`id_administracion`),
+  ADD KEY `ref_administracion_documento` (`id_documento`);
 
 --
--- Indices de la tabla `agenda_eventos`
+-- Indexes for table `agenda_eventos`
 --
 ALTER TABLE `agenda_eventos`
- ADD PRIMARY KEY (`id_agenda_eventos`), ADD KEY `ref_agenda_eventos_documento` (`id_documento`);
+  ADD PRIMARY KEY (`id_agenda_eventos`),
+  ADD KEY `ref_agenda_eventos_documento` (`id_documento`);
 
 --
--- Indices de la tabla `audiencias`
+-- Indexes for table `audiencias`
 --
 ALTER TABLE `audiencias`
- ADD PRIMARY KEY (`id_audiencia`), ADD KEY `ref_audiencias_datosgral` (`id_datos_generales`);
+  ADD PRIMARY KEY (`id_audiencia`),
+  ADD KEY `ref_audiencias_datosgral` (`id_datos_generales`);
 
 --
--- Indices de la tabla `datos_generales`
+-- Indexes for table `datos_generales`
 --
 ALTER TABLE `datos_generales`
- ADD PRIMARY KEY (`id_datos_generales`);
+  ADD PRIMARY KEY (`id_datos_generales`);
 
 --
--- Indices de la tabla `documento`
+-- Indexes for table `documento`
 --
 ALTER TABLE `documento`
- ADD PRIMARY KEY (`id_documento`);
+  ADD PRIMARY KEY (`id_documento`);
 
 --
--- Indices de la tabla `peticiones`
+-- Indexes for table `peticiones`
 --
 ALTER TABLE `peticiones`
- ADD PRIMARY KEY (`id_peticiones`), ADD KEY `ref_peticiones_documento` (`id_documento`), ADD KEY `ref_peticiones_datosgral` (`id_datos_generales`);
+  ADD PRIMARY KEY (`id_peticiones`),
+  ADD KEY `ref_peticiones_documento` (`id_documento`),
+  ADD KEY `ref_peticiones_datosgral` (`id_datos_generales`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
- ADD PRIMARY KEY (`idUsuario`);
+  ADD PRIMARY KEY (`idUsuario`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `administracion`
+-- AUTO_INCREMENT for table `administracion`
 --
 ALTER TABLE `administracion`
-MODIFY `id_administracion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_administracion` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `agenda_eventos`
+-- AUTO_INCREMENT for table `agenda_eventos`
 --
 ALTER TABLE `agenda_eventos`
-MODIFY `id_agenda_eventos` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id_agenda_eventos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT de la tabla `audiencias`
+-- AUTO_INCREMENT for table `audiencias`
 --
 ALTER TABLE `audiencias`
-MODIFY `id_audiencia` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id_audiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT de la tabla `datos_generales`
+-- AUTO_INCREMENT for table `datos_generales`
 --
 ALTER TABLE `datos_generales`
-MODIFY `id_datos_generales` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id_datos_generales` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
--- AUTO_INCREMENT de la tabla `documento`
+-- AUTO_INCREMENT for table `documento`
 --
 ALTER TABLE `documento`
-MODIFY `id_documento` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+  MODIFY `id_documento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
--- AUTO_INCREMENT de la tabla `peticiones`
+-- AUTO_INCREMENT for table `peticiones`
 --
 ALTER TABLE `peticiones`
-MODIFY `id_peticiones` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id_peticiones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `administracion`
+-- Constraints for table `administracion`
 --
 ALTER TABLE `administracion`
-ADD CONSTRAINT `ref_administracion_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`id_documento`) ON DELETE CASCADE;
+  ADD CONSTRAINT `ref_administracion_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`id_documento`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `agenda_eventos`
+-- Constraints for table `agenda_eventos`
 --
 ALTER TABLE `agenda_eventos`
-ADD CONSTRAINT `ref_agenda_eventos_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`id_documento`) ON DELETE CASCADE;
+  ADD CONSTRAINT `ref_agenda_eventos_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`id_documento`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `audiencias`
+-- Constraints for table `audiencias`
 --
 ALTER TABLE `audiencias`
-ADD CONSTRAINT `ref_audiencias_datosgral` FOREIGN KEY (`id_datos_generales`) REFERENCES `datos_generales` (`id_datos_generales`) ON DELETE CASCADE;
+  ADD CONSTRAINT `ref_audiencias_datosgral` FOREIGN KEY (`id_datos_generales`) REFERENCES `datos_generales` (`id_datos_generales`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `peticiones`
+-- Constraints for table `peticiones`
 --
 ALTER TABLE `peticiones`
-ADD CONSTRAINT `ref_peticiones_datosgral` FOREIGN KEY (`id_datos_generales`) REFERENCES `datos_generales` (`id_datos_generales`) ON DELETE CASCADE,
-ADD CONSTRAINT `ref_peticiones_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`id_documento`) ON DELETE CASCADE;
+  ADD CONSTRAINT `ref_peticiones_datosgral` FOREIGN KEY (`id_datos_generales`) REFERENCES `datos_generales` (`id_datos_generales`) ON DELETE CASCADE,
+  ADD CONSTRAINT `ref_peticiones_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`id_documento`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
