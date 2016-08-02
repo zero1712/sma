@@ -22,7 +22,7 @@
             top: 900px !important;
         }
         
-.ui-dialog
+        .ui-dialog
 {
 background: #0489B1;
 }
@@ -53,7 +53,6 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 <body>
 
     <div id="wrapper">
-
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
@@ -71,13 +70,21 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     </div>
                 </li>
                <li class="active">
+                      <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
                     <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
+                                           <?php }?>
+                      
+ <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 3)){?>
+
                     <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
                     <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
                     <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
+                        <?php }?>
+                         <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
+
                     <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
 
-
+ <?php }?>
 
 
                 </li>
@@ -86,6 +93,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
         </div>
     </nav>
+
 
         <div id="page-wrapper" class="gray-bg">
      <div class="row border-bottom">
@@ -129,8 +137,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                               Para realizar una búsqueda, ingresar el texto a buscar en los filtros ubicados arriba de cada columna, la búsqueda se realizara por coincidencia y por búsqueda exacta.
                             </strong></p>
 
-                            <div class="jqGrid_wrapper">
-                                <table id="table_list_2"></table>
+                            <div class="jqGrid_wrapper ">
+                                <table class="table-striped" id="table_list_2"></table>
                                 <div id="pager_list_2"></div>
                             </div>
                         </div>
@@ -146,52 +154,159 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 <strong>Copyright</strong> BuscarV &copy; 2016
             </div>
         </div>
-               <div id="datos_peticion" class="form-group" style="display:none">
-    <form enctype="multipart/form-data" method="post" id="form_datos_peticion" name="form_datos_peticion" class="form-vertical">
 
-     <div class="row" style="display:none">
-                                    <div class="form-group has-success">
-                                        <label class="col-sm-2 control-label">ID:</label>
-
-                                        <div class="col-sm-10">
-                                            <input type="text" id="id_peticiones" name="id_peticiones" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+               <div class="modal inmodal" id="datos_peticion" tabindex="-1" role="dialog"  aria-hidden="trie">
+                                <div class="modal-dialog  modal-lg">
+                                    <div class="modal-content animated fadeIn">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+                                            <div id="datos_del_peticionario">
+                                            <i class="fa fa-male modal-icon"></i>
+                                            </div>
+                                            <h4 class="modal-title">Datos de la petición</h4>
                                         </div>
-                                    </div>   
-             </div>
-    <div class="row">
+                                        <div class="modal-body">
+                                          <form enctype="multipart/form-data" method="post" id="form_datos_peticion" name="form_datos_peticion" class="form-vertical">
+
+                                                <div class="row">
     <div class="form-group has-success">
                                         <label class="col-sm-2 control-label">Fecha del documento:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="fecha_documento" name="fecha_documento"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                            <input type="text" id="fecha_documento" name="fecha_documento"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" readonly>
+                                        </div>
+                                  
+                                                    </div></div>
+                                                    <br>
+    <div class="row">
+    <div class="form-group has-success">
+                                        <label class="col-sm-2 control-label">Numero del documento:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="numero_documento" name="numero_documento"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" readonly>
                                         </div>
                                         <label class="col-sm-2 control-label">Folio del documento:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="folio_documento" name="folio_documento" class="form-control"  onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                            <input type="text" id="folio_documento" name="folio_documento" class="form-control"  onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" readonly>
                                         </div>
                                     </div>
         </div>
          
                                                   <div class="hr-line-dashed"></div>
-
-            <div class="row">
+                                    <div class="row">
                                     <div class="form-group has-success">
-                                        <label class="col-sm-2 control-label">Concepto:</label>
+                                        <label class="col-sm-2 control-label">Nombre(s):</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="concepto" name="concepto" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                            <input type="text" id="nombre" name="nombre" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
                                         </div>
                                     </div>   
              </div>
+            <br>
+            <div class="row">
+                                    <div class="form-group has-success">
+                                        <label class="col-sm-2 control-label">Apellido paterno:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="apellido_p" name="apellido_p" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
+                                        </div>
+                                          <label class="col-sm-2 control-label">Apellido materno:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="apellido_m" name="apellido_m" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" >
+                                        </div>
+                                    </div>   
+             </div>
+                        <br>                <div class="row">
+    <div class="form-group has-success">
+                                        
+                                        <label class="col-sm-2 control-label">Cargo:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" id="cargo" name="cargo"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                        </div>
+       
+                                    </div>
+        </div>
+              <br>  
+                                          <div class="row">
+    <div class="form-group has-success">
+                                        
+                                        <label class="col-sm-2 control-label">Telefono Casa:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="casa" name="casa"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                        </div>
+             <label class="col-sm-2 control-label">Telefono Celular:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="cel" name="cel" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                        </div>
+            
+                                    </div>
+        </div>
          <br>
+                                                                                        <div class="row">
+    <div class="form-group has-success">
+                            <label class="col-sm-2 control-label">Calle y Numero:</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" id="calle" name="calle" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                        </div>
+                                    </div>
+                   
+                                        </div>
+                                              <br>
+                   <div class="row">
+    <div class="form-group has-success">
+                                        
+                                        <label class="col-sm-2 control-label">Colonia:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="colonia" name="colonia"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                        </div>
+            <label class="col-sm-2 control-label">Municipio:</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" id="municipio" name="municipio" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                        </div>
+                                    </div>
+                   
+                                        </div> 
+                                          
+                                 <div class="hr-line-dashed"></div>
+                                           <b>  <small><p> Datos de la petición</p></small> </b>
+                                <div class="hr-line-dashed"></div>
+
+                                                
+
+              <div class="row">
+    <div class="form-group has-success">
+                                    
+                                
+          <label class="col-sm-2 control-label">Observaciones:</label>
+                                                       <div class="col-sm-4">
+                                                <textarea class="form-control" id="observaciones" name="observaciones" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
+                        <label class="col-sm-2 control-label">Petición:</label>
+
+                                        <div class="col-sm-4">
+                                                <textarea class="form-control" id="peticion" name="peticion" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
+        
+                                    </div>
+                            
+                            
+        </div>
+                                              <br>
+         
+            <div id="datos_materiales">
                  <div class="row">
     <div class="form-group has-success">
                                         
                                         <label class="col-sm-2 control-label">Unidad de medida:</label>
 
                                         <div class="col-sm-4">
-                                            <select id="unidad_de_medida" name="unidad_de_medida"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                            <select id="unidad_de_medida" name="unidad_de_medida"  class="form-control">
                                                 <option  value="">Seleccione</option>
                                                 <option  value="Kilogramos">Kilogramos</option>
                                                 <option  value="Tonelada">Tonelada</option>
@@ -203,7 +318,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
             <label class="col-sm-2 control-label">Rubro:</label>
 
                                         <div class="col-sm-4">
-                                             <select id="rubro" name="rubro" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                             <select id="rubro" name="rubro" class="form-control">
                                                <option  value="">Seleccione</option>
                                                 <option  value="Calles/Servicios">Ciudadano</option>
                                                 <option  value="Educación">Educación</option>
@@ -223,38 +338,18 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                         <label class="col-sm-2 control-label">Cantidad:</label>
 
                                         <div class="col-sm-4">
-                                            <input type="text" id="cantidad" name="cantidad"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                            <input type="text" id="cantidad" name="cantidad"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
-            <label class="col-sm-2 control-label">Prioridad:</label>
+          <label class="col-sm-2 control-label">Concepto:</label>
 
                                         <div class="col-sm-4">
-                                            <select id="prioridad" name="prioridad" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
-                                                <option  value="">Seleccione</option>
-                                                <option  value="Urgente">Urgente</option>
-                                                <option  value="Regular">Regular</option>
-                                            </select>
-                                        
+                                            <input type="text" id="concepto" name="concepto" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
+          
                                     </div>
         </div>
          <br>
-         
-              <div class="row">
-    <div class="form-group has-success">
-                                    
-                                
-          <label class="col-sm-2 control-label">Observaciones:</label>
-                                                       <div class="col-sm-4">
-                                                <textarea class="form-control" id="observaciones" name="observaciones" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
-                        <label class="col-sm-2 control-label">Petición:</label>
-
-                                        <div class="col-sm-4">
-                                                <textarea class="form-control" id="peticion" name="peticion" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
-        
-                                    </div>
-                            
-                            
-        </div>
+ </div>
          <br>
           <div class="row">
          
@@ -262,7 +357,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                          <label class="col-sm-2 control-label">Tipo de petición:</label>
 
                                         <div class="col-sm-4">
-                                            <select id="tipo" name="tipo" class="form-control"  onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
+                                            <select id="tipo" name="tipo" class="form-control">
                                              <option  value="">Seleccione</option>
                                                 <option  value="Materiales/Regalos/Obsequios">Materiales/Regalos/Obsequios</option>
                                                 <option  value="Laboral">Laboral</option>
@@ -273,9 +368,29 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
                                             </select>
                                         </div>
-                                             <label class="col-sm-2 control-label">Status:</label>
+                             <label class="col-sm-2 control-label">Prioridad:</label>
 
                                         <div class="col-sm-4">
+                                            <select id="prioridad" name="prioridad" class="form-control" >
+                                                <option  value="">Seleccione</option>
+                                                <option  value="Urgente">Urgente</option>
+                                                <option  value="Regular">Regular</option>
+                                            </select>
+                                        
+                                        </div>
+                                   
+        
+                                    </div>
+                          
+                                      
+                                        </div>
+                                              <br>
+                                                         <div class="row">
+    <div class="form-group has-success">
+                                        
+              <label class="col-sm-2 control-label">Status:</label>
+
+                                        <div class="col-sm-10">
                                                <select class="form-control" id="status" name="status" >
   <option value="" >Seleccione</option>
   <option value="Contactado">Contactado</option>
@@ -284,22 +399,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
   <option value="Revisar">Revisar</option>
   <option value="No aprobado">No aprobado</option>
   <option value="Tramitar e informar">Tramitar e informar</option>
+                                                 
 </select>                                                                                     </div>
-        
+
                                     </div>
-                          
-                                      
-                                        </div>
-                   </form>
-         </div>
+        </div>
+           
+                                        <div class="hr-line-dashed"></div>
 
-    </div>  
-       
-       <div id="datos_peticionario" class="form-group" style="display:none">
-        <form enctype="multipart/form-data" method="post" id="form_datos_persona" name="form_datos_persona" class="form-vertical">
-
-
-  <div class="row" style="display:none">
+   <div class="row" style="display:none">
                                     <div class="form-group has-success">
                                         <label class="col-sm-2 control-label">ID:</label>
 
@@ -308,68 +416,25 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                         </div>
                                     </div>   
              </div>
-
-            <div class="row">
+                                                  <div class="row" style="display:none">
                                     <div class="form-group has-success">
-                                        <label class="col-sm-2 control-label">Nombre del peticionario:</label>
+                                        <label class="col-sm-2 control-label">ID:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="nombre" name="nombre" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" readonly>
+                                            <input type="text" id="id_peticiones" name="id_peticiones" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>   
              </div>
-         <br>
-                 <div class="row">
-    <div class="form-group has-success">
-                                        
-                                        <label class="col-sm-2 control-label">Cargo:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="cargo" name="cargo"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
-                                        </div>
-            <label class="col-sm-2 control-label">Telefono Celular:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="cel" name="cel" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
+                                              </form>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                                            <button type="button" id="btt_update" name="btt_update" class="btn btn-primary">Guardar cambios</button>
                                         </div>
                                     </div>
-        </div>
-                                                  <div class="hr-line-dashed"></div>
-
-             <div class="row">
-    <div class="form-group has-success">
-                                        
-                                        <label class="col-sm-2 control-label">Telefono Casa:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="casa" name="casa"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
-                                        </div>
-            <label class="col-sm-2 control-label">Calle y Numero:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="calle" name="calle" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
-                                        </div>
-                                    </div>
-        </div>
-         <br>
-                   <div class="row">
-    <div class="form-group has-success">
-                                        
-                                        <label class="col-sm-2 control-label">Colonia:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="colonia" name="colonia"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);">
-                                        </div>
-            <label class="col-sm-2 control-label">Municipio:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="municipio" name="municipio" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" >
-                                        </div>
-                                    </div>
-        </div>
-         
-              </form>
-    </div>
+                                </div>
+                            </div>
+    </div>  
+       
 
 
 
@@ -395,14 +460,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
     <script src="<?php echo base_url();?>js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
-    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 
     <script>
         $(document).ready(function () {
 
         iniciarComponents();
-
+ var contador=0;
+ var lastSel;
         function iniciarComponents(){
                      $.ajax({
 					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones_na",
@@ -419,63 +483,68 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 shrinkToFit: true,
                 rowNum: 20,
                 rowList: [10, 20, 30],
-                colNames:['ID','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Fecha entrada','peticion','id_peticiones','id_datos_generales','Tipo de peticion','Concepto','Unidad de medida','Rubro','Cantidad','Prioridad','Observaciones','Nombre','Apellido paterno','Apellido materno','Cargo','Telefono celular','Telefono casa','Calle y numero','Colonia','Municipio','status'],
+                colNames:['ID','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Fecha entrada','Apellido paterno','Nombre','Apellido materno','peticion','Telefono celular','id_peticiones','id_datos_generales','Rubro','Tipo de peticion','Concepto','Unidad de medida','Cantidad','Prioridad','Observaciones','Cargo','Telefono casa','Calle y numero','Colonia','Municipio','status'],
                 colModel:[
                     {name:'id_documento',index:'id_documento', editable: true, width:60, sorttype:"int",search:true,hidden: true},
-                    {name:'fecha_documento',index:'fecha_documento', editable: true, width:90, sorttype:"date", formatter:"date",hidden: true},
+                    {name:'fecha_documento',index:'fecha_documento', editable: true, width:40, sorttype:"date", formatter:"date",hidden: false},
                     {name:'tipo_documento',index:'tipo_documento', editable: true, width:100,hidden: true},
                     {name:'numero_documento',index:'numero_documento', editable: true, width:40, align:"right",hidden: false},
                     {name:'folio_documento',index:'folio_documento', editable: true, width:40, align:"right",hidden: false},
                     {name:'fecha_entrada',index:'fecha_entrada', editable: true, width:80,align:"right",sorttype:"date",formatter:"date",hidden:true},
-                    {name:'peticion',index:'peticion', editable: true, width:100,hidden: false},
+                    {name:'ap_paterno',index:'ap_paterno', editable: true, width:60,search:true,hidden: false},
+                    {name:'nombre',index:'nombre', editable: true, width:60,search:true,hidden: false},
+                    {name:'ap_materno',index:'ap_materno', editable: true, width:60,search:true,hidden: true},
+                    {name:'peticion',index:'peticion', editable: true, width:100,hidden: true},
+                    {name:'tel_celular',index:'tel_celular', editable: true, width:60,search:true,hidden: false},
                     {name:'id_peticiones',index:'id_peticiones', editable: true, width:60, sorttype:"int",search:true,hidden: true},
                     {name:'id_datos_generales',index:'id_datos_generales', editable: true, width:60, sorttype:"int",search:true,hidden: true},
+                    {name:'rubro',index:'rubro', editable: true, width:100,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: 'Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios',defaultValue: 'IN' },
+                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios' }},
 
                     {name:'tipo_de_peticion',index:'tipo_de_peticion', editable: true, width:90,hidden: false,formatter:"select", edittype: 'select', editoptions: { value: 'Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales', defaultValue: 'IN' },
                         stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales' }},
                     {name:'concepto',index:'concepto', editable: true, width:100,hidden: true},
                     {name:'unidad_de_medida',index:'unidad_de_medida', editable: true, width:100,hidden: true},
-                    {name:'rubro',index:'rubro', editable: true, width:100,hidden: true},
                     {name:'cantidad',index:'cantidad', editable: true, width:60, sorttype:"int",search:false,hidden: true},
                     {name:'prioridad',index:'prioridad', editable: true, width:60,search:true,hidden: false,formatter:"select",edittype: 'select',editoptions: { value: 'Urgente:Urgente;Regular:Regular', defaultValue: 'IN' },
                         stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Urgente:Urgente;Regular:Regular' }},
                     {name:'observaciones',index:'observaciones', editable: true, width:100,hidden: true},
-                    {name:'nombre',index:'nombre', editable: true, width:60,search:true,hidden: true},
-                    {name:'ap_paterno',index:'ap_paterno', editable: true, width:60,search:true,hidden: true},
-                    {name:'ap_materno',index:'ap_materno', editable: true, width:60,search:true,hidden: true},
                     {name:'cargo',index:'cargo', editable: true, width:60,search:true,hidden: true},
-                    {name:'tel_celular',index:'tel_celular', editable: true, width:60,search:true,hidden: true},
                     {name:'tel_casa',index:'tel_casa', editable: true, width:60,search:true,hidden: true},
                     {name:'calle_y_numero',index:'calle_y_numero', editable: true, width:60,search:true,hidden: true},
                     {name:'colonia',index:'colonia', editable: true, width:60,search:true,hidden: true},
-                    {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: false},
-                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: ':Seleccione;Contactado:Contactado;N/A:N/A', defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Seleccione;Contactado:Contactado;N/A:N/A' }}
+                    {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: true},
+                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: 'Contactado:Contactado;N/A:N/A;Atender:Atender;Revisar:Revisar;No aprobado:No aprobado;Tramitar e informar:Tramitar e informar', defaultValue: 'IN' },
+                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Contactado:Contactado;N/A:N/A;Atender:Atender;Revisar:Revisar;No aprobado:No aprobado;Tramitar e informar:Tramitar e informar' }}
                   
                 ],
                 pager: "#pager_list_2",
                 viewrecords: true,
-                caption: "Documentos",
+                caption: "Peticiones",
                 add: false,
                 edit: false,
                 addtext: 'false',
                 edittext: 'Edit',
                 hidegrid: false, 
-                ondblClickRow: function(rowId) {
-                  
+                onSelectRow: function(rowId,status) {
+                    if(rowId && rowId!==lastSel && contador!=0) {
+                    $('#table_list_2').restoreRow(lastSel); 
+                    lastSel=rowId; 
+                   
                     var rowData = jQuery(this).getRowData(rowId);
                     $("#fecha_documento").val(rowData["fecha_documento"]);
                     $("#folio_documento").val(rowData["folio_documento"]);
+                    $("#numero_documento").val(rowData["numero_documento"]);
                     $("#concepto").val(rowData["concepto"]);
                     $("#unidad_de_medida").val(rowData["unidad_de_medida"]);
                     $("#rubro").val(rowData["rubro"]);
-                    $("#cantidad").val(rowData["cantidad"]);
-                    $("#prioridad").val(rowData["prioridad"]);
+                    $("#apellido_p").val(rowData["ap_paterno"]);
+                    $("#apellido_m").val(rowData["ap_materno"]);    
                     $("#tipo").val(rowData["tipo_de_peticion"]);
                     $("#peticion").val(rowData["peticion"]);
                     $("#observaciones").val(rowData["observaciones"]);
                     var nombre1=rowData["nombre"]+" "+rowData["ap_paterno"]+" "+rowData["ap_materno"];
-                    $("#nombre").val(nombre1);
+                    $("#nombre").val(rowData["nombre"]);
                     $("#cargo").val(rowData["cargo"]);
                     $("#cel").val(rowData["tel_celular"]);
                     $("#casa").val(rowData["tel_casa"]);
@@ -483,13 +552,21 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     $("#colonia").val(rowData["colonia"]);
                     $("#municipio").val(rowData["municipio"]);
                     $("#id_peticiones").val(rowData["id_peticiones"]);
-                    $("#status").val(rowData["status"]);
                     $("#id_datos_generales").val(rowData["id_datos_generales"]);
 
+                    $("#status").val(rowData["status"]);
+                    if(rowData["tipo_de_peticion"]!='Materiales/Regalos/Obsequios'){
+                                $("#datos_materiales").attr("style", "display:none");
 
+                    }
+                    if(rowData["tipo_de_peticion"]=='Materiales/Regalos/Obsequios'){
+                                $("#datos_materiales").attr("style", "display:block");
 
-                            $("#datos_peticion").dialog('open');
+                    }
 
+                    $('#datos_peticion').modal('show');
+                        }
+                     contador=contador+1;
         }
                 
             });
@@ -516,74 +593,12 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
             
             
         }
-         $("#datos_peticion").dialog({
-    autoOpen: false,
-    width: 'auto', // overcomes width:'auto' and maxWidth bug
-    maxWidth: 600,
-    height: 'auto',
-    modal: true,
-    fluid: true, //new option
-    resizable: false,     
-                buttons:[{
-                    id:"btnDato",
-                    text:"Datos del peticionario",
-                    click:function(){
-                    $("#datos_peticionario").dialog('open');
 
-                       }
-                        		
-                    
-                },{
-                    id:"btnGuardar",
-                    text:"Guardar",
-                    click:function(){
-                    if (confirm('Desea cambiar los datos de la petición ?\n ')) { 
-                       $("#form_datos_peticion").submit();
-                        }
-                        else{
-                            
-                            alert('Se cancelo la actualización de la petición');
-                        }
-                                              $(this).dialog('close');
-
-                       }
-                        		
-                    
-                },{
-                  id:"btnCerrar",
-                  text:"Cerrar",
-                  click:function(){
-                      $(this).dialog('close');
-                  }  
-                } ]
-    });
-                   $("#datos_peticionario").dialog({
-    autoOpen: false,
-    width: 'auto', // overcomes width:'auto' and maxWidth bug
-    maxWidth: 600,
-    height: 'auto',
-    modal: true,
-    fluid: true, //new option
-    resizable: false,     
-                buttons:[{
-                  id:"btnGuardar",
-                  text:"Guardar",
-                  click:function(){
-$("#form_datos_persona").submit();       
-                  }  
-                },{
-                  id:"btnCerrar",
-                  text:"Cerrar",
-                  click:function(){
-                      $(this).dialog('close');
-                  }  
-                }]
-    });
             
-                   $("#form_datos_peticion").submit(function() {
+                $("#form_datos_peticion").submit(function() {
                 var formObj = $(this);
                 var formData = new FormData(this);
-                var url = "<?php echo base_url();?>index.php/registro/updatePeticionesById"; 
+                var url = "<?php echo base_url();?>index.php/registro/updatePeticionyDatosById"; 
 
                 $.ajax({
                 type: "POST",
@@ -598,21 +613,7 @@ $("#form_datos_persona").submit();
                 var bandera=$.parseJSON(data);
                 if(bandera==true){
                 alert("Se actulizaron los datos exitosamente!");
-                    location.reload();
-                   /*  $.ajax({
-					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones",
-                    type:"POST",
-                    //dataType: 'json',
-                    
-					success: function(datos){
-                  
-                      
-                        $('#table_list_2').jqGrid('setGridParam', {data: datos, datatype: 'json'});
-                        $('#table_list_2').trigger('reloadGrid'); 
-
-					}
-                    
-				});*/
+                location.reload();
 
 
                 $("#datos_peticionario").dialog('close');
@@ -632,88 +633,20 @@ $("#form_datos_persona").submit();
 
     return false; // evitar la ejecucion del form si algo falla
            });
-              $("#form_datos_persona").submit(function() {
-                var formObj = $(this);
-                var formData = new FormData(this);
-                var url = "<?php echo base_url();?>index.php/registro/updatePersonaById"; 
 
-                $.ajax({
-                type: "POST",
-                url: url,
-                data: formData, // de forma seriada los elementos del form
-                mimeType:"multipart/form-data",
-                contentType: false,
-                cache: false,
-                processData:false,
-                success: function(data)
-           {
-                var bandera=$.parseJSON(data);
-                if(bandera==true){
-                alert("Se actulizaron los datos exitosamente!");
-                    location.reload();
-                   /*  $.ajax({
-					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones",
-                    type:"POST",
-                    //dataType: 'json',
-                    
-					success: function(datos){
-                  
-                      
-                        $('#table_list_2').jqGrid('setGridParam', {data: datos, datatype: 'json'});
-                        $('#table_list_2').trigger('reloadGrid'); 
-
-					}
-                    
-				});*/
-
-
-                $(this).dialog('close');
-                    
-
-                }else{
-                alert("Ocurrio un error al actualizar, intente de nuevo mas tarde.");
-                $(this).dialog('close');
-
-                }
+ $('#btt_update').click(function() {
+           
+            $("#form_datos_peticion").submit();
+        });
          
-           }, 
-                error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-                } 
-         });
-
-    return false; // evitar la ejecucion del form si algo falla
-           });
-
-
-// catch dialog if opened within a viewport smaller than the dialog width
-$(document).on("dialogopen", ".ui-dialog", function (event, ui) {
-    fluidDialog();
+$('#tipo').on('change', function() {
+    if($("#tipo").val()=='Materiales/Regalos/Obsequios'){
+        $("#datos_materiales").attr("style", "display:block");
+    }
+    if($("#tipo").val()!='Materiales/Regalos/Obsequios'){
+        $("#datos_materiales").attr("style", "display:none");
+    }
 });
-
-function fluidDialog() {
-    var $visible = $(".ui-dialog:false");
-    // each open dialog
-    $visible.each(function () {
-        var $this = $(this);
-        var dialog = $this.find(".ui-dialog-content").data("ui-dialog");
-        // if fluid option == true
-        if (dialog.options.fluid) {
-            var wWidth = $(window).width();
-            // check window width against dialog width
-            if (wWidth < (parseInt(dialog.options.maxWidth) + 50))  {
-                // keep dialog from filling entire screen
-                $this.css("max-width", "90%");
-            } else {
-                // fix maxWidth bug
-                $this.css("max-width", dialog.options.maxWidth + "px");
-            }
-            //reposition dialog
-            dialog.option("position", dialog.options.position);
-        }
-    });
-
-}
 
  
         });
@@ -725,6 +658,7 @@ function fluidDialog() {
 
 
 </body>
+
 
 </html>
 

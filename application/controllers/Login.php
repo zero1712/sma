@@ -31,7 +31,12 @@ class Login extends CI_Controller {
             if($ExisteUsuarioyPassoword->privilegio == 1) {   
            $this->load->view('registro/formulario'); 
             }
-            
+            if($ExisteUsuarioyPassoword->privilegio == 2) {   
+           $this->load->view('registro/formulario'); 
+            }
+               if($ExisteUsuarioyPassoword->privilegio == 3) {   
+           $this->load->view('registro/registros'); 
+            }
             }
             else{   //   Si no logró validar
                $data['error']="E-mail o password incorrecta, por favor vuelva a intentar";

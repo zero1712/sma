@@ -22,17 +22,6 @@
             top: 900px !important;
         }
         
-        .ui-dialog
-{
-background: #0489B1;
-}
-.ui-dialog .ui-widget-header
-{
-
-background: #1ab394;
-color: #FFFFFF;
-font-family: arial;
-
 
 }
     </style>
@@ -70,22 +59,14 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                        SMA+
                     </div>
                 </li>
-                  <li class="active">
-                          <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
+                <li class="active">
                     <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
-                        <?php }?>
-                      
- <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 3)){?>
-
-                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
                     <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
-                       <?php }?>
-                                          <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
-
                     <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
 
- <?php }?>
+
 
 
                 </li>
@@ -129,7 +110,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 <div class="col-lg-12">
                     <div class="ibox ">
                         <div class="ibox-title">
-                            <h5>Consulta de registros</h5>
+                            <h5>Consulta de audiencias</h5>
                         </div>
                         <div class="ibox-content">
                       
@@ -395,11 +376,6 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
   <option value="" >Seleccione</option>
   <option value="Contactado">Contactado</option>
   <option value="N/A">N/A</option>
-  <option value="Atender">Atender</option>
-  <option value="Revisar">Revisar</option>
-  <option value="No aprobado">No aprobado</option>
-  <option value="Tramitar e informar">Tramitar e informar</option>
-                                                 
 </select>                                                                                     </div>
 
                                     </div>
@@ -469,7 +445,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
  var lastSel;
         function iniciarComponents(){
                      $.ajax({
-					url:"<?php echo base_url(); ?>" + "index.php/registro/getPeticiones_contactado",
+					url:"<?php echo base_url(); ?>" + "index.php/registro/getAudiencias",
                     type:"POST",
                     //dataType: 'json', 
 					success: function(datos){
@@ -514,13 +490,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {name:'calle_y_numero',index:'calle_y_numero', editable: true, width:60,search:true,hidden: true},
                     {name:'colonia',index:'colonia', editable: true, width:60,search:true,hidden: true},
                     {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: true},
-                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: 'Contactado:Contactado;N/A:N/A;Atender:Atender;Revisar:Revisar;No aprobado:No aprobado;Tramitar e informar:Tramitar e informar', defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Contactado:Contactado;N/A:N/A;Atender:Atender;Revisar:Revisar;No aprobado:No aprobado;Tramitar e informar:Tramitar e informar' }}
+                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: ':Seleccione;Contactado:Contactado;N/A:N/A', defaultValue: 'IN' },
+                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Seleccione;Contactado:Contactado;N/A:N/A' }}
                   
                 ],
                 pager: "#pager_list_2",
                 viewrecords: true,
-                caption: "Peticiones",
+                caption: "Audiencias",
                 add: false,
                 edit: false,
                 addtext: 'false',
@@ -658,7 +634,6 @@ $('#tipo').on('change', function() {
 
 
 </body>
-
 
 </html>
 
