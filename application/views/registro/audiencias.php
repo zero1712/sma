@@ -117,24 +117,28 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     </p>
                 </div>
             </div>
-        <div class="wrapper wrapper-content  animated fadeInRight">
-            <div class="row">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+             <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox ">
+                        <div class="ibox-title">
+                            <h5>Historial de audiencias</h5>
+                        </div>
+          
+                        <div class="ibox-content">
+                <div class="ibox-content inspinia-timeline">
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>Consulta de audiencias</h5>
                         </div>
-                        <div class="ibox-content">
-                           <div class="col-lg-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Historial de audiencias</h5>
-                </div>
-                <div class="ibox-content inspinia-timeline">
-                </div>
-            </div>
-        </div>
-                        </div>
+          
                         <div class="ibox-content">
                       
                             <p><strong>
@@ -149,7 +153,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+  
            <div class="footer">
             <div class="pull-right">
                 <strong>SAN MATEO ATENCO</strong> 

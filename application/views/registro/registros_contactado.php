@@ -331,6 +331,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                                 <option  value="Salud">Salud</option>
                                                 <option  value="Seguridad">Seguridad </option>
                                                 <option  value="Calles/Servicios">Calles/Servicios</option>
+                                                <option  value="Deportivo">Deportivo</option>
+ 
                                             </select>  
                                         </div>
                                     </div>
@@ -488,14 +490,15 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 shrinkToFit: true,
                 rowNum: 20,
                 rowList: [10, 20, 30],
-                colNames:['ID','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Fecha entrada','Apellido paterno','Nombre','Apellido materno','peticion','Telefono celular','id_peticiones','id_datos_generales','Rubro','Tipo de peticion','Concepto','Unidad de medida','Cantidad','Prioridad','Observaciones','Cargo','Telefono casa','Calle y numero','Colonia','Municipio','status'],
+                colNames:['ID','Fecha de registro','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Apellido paterno','Nombre','Apellido materno','peticion','Telefono celular','id_peticiones','id_datos_generales','Rubro','Tipo de peticion','Concepto','Unidad de medida','Cantidad','Prioridad','Observaciones','Cargo','Telefono casa','Calle y numero','Colonia','Municipio','status'],
                 colModel:[
                     {name:'id_documento',index:'id_documento', editable: true, width:60, sorttype:"int",search:true,hidden: true},
-                    {name:'fecha_documento',index:'fecha_documento', editable: true, width:40, sorttype:"date", formatter:"date",hidden: false},
+                                        {name:'fecha_entrada',index:'fecha_entrada', editable: true, width:80,align:"right",sorttype:"date",formatter:"date",formatoptions: {srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y - g:i A'},hidden:false},
+
+                    {name:'fecha_documento',index:'fecha_documento', editable: true, width:40, sorttype:"date", formatter:"date",hidden: true},
                     {name:'tipo_documento',index:'tipo_documento', editable: true, width:100,hidden: true},
                     {name:'numero_documento',index:'numero_documento', editable: true, width:40, align:"right",hidden: false},
                     {name:'folio_documento',index:'folio_documento', editable: true, width:40, align:"right",hidden: false},
-                    {name:'fecha_entrada',index:'fecha_entrada', editable: true, width:80,align:"right",sorttype:"date",formatter:"date",hidden:true},
                     {name:'ap_paterno',index:'ap_paterno', editable: true, width:60,search:true,hidden: false},
                     {name:'nombre',index:'nombre', editable: true, width:60,search:true,hidden: false},
                     {name:'ap_materno',index:'ap_materno', editable: true, width:60,search:true,hidden: true},
@@ -503,8 +506,8 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     {name:'tel_celular',index:'tel_celular', editable: true, width:60,search:true,hidden: false},
                     {name:'id_peticiones',index:'id_peticiones', editable: true, width:60, sorttype:"int",search:true,hidden: true},
                     {name:'id_datos_generales',index:'id_datos_generales', editable: true, width:60, sorttype:"int",search:true,hidden: true},
-                    {name:'rubro',index:'rubro', editable: true, width:100,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: 'Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios',defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios' }},
+                    {name:'rubro',index:'rubro', editable: true, width:100,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: 'Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios;Deportivo:Deportivo',defaultValue: 'IN' },
+                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios;Deportivo:Deportivo' }},
 
                     {name:'tipo_de_peticion',index:'tipo_de_peticion', editable: true, width:90,hidden: false,formatter:"select", edittype: 'select', editoptions: { value: 'Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales', defaultValue: 'IN' },
                         stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales' }},

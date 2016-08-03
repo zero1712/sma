@@ -79,7 +79,8 @@ class Registro extends CI_Controller {
         $colonia=$this->input->post("colonia_audiencia");
         $colonia_otro=$this->input->post("colonia_audiencia2");
         $municipio=$this->input->post("municipio_audiencia");
-        
+        $microfecha=$this->getStamp();
+
         if($colonia=="99"){
         $data=array(
             'nombre'=>$nombre,
@@ -91,7 +92,8 @@ class Registro extends CI_Controller {
             'calle_y_numero'=>$calle_y_numero,
             'colonia'=>$colonia_otro,
             'municipio'=>$municipio,
-            'fecha_entrada'=>date("Y-m-d H:i:s H:i:s")
+            'fecha_entrada'=>date("Y-m-d H:i:s H:i:s"),
+            'microfecha'=>$microfecha
 
         
         );
@@ -107,7 +109,9 @@ class Registro extends CI_Controller {
             'calle_y_numero'=>$calle_y_numero,
             'colonia'=>$colonia,
             'municipio'=>"San Mateo Atenco",
-            'fecha_entrada'=>date('Y-m-d H:i:s H:i:s')
+            'fecha_entrada'=>date('Y-m-d H:i:s H:i:s'),
+            'microfecha'=>$microfecha
+
         
         );
         }
@@ -124,7 +128,8 @@ class Registro extends CI_Controller {
             'asunto_de_audiencia'=>$asunto_audiencia,
             'seguimiento'=>$seguimiento,
             'id_datos_generales'=>$resultado,
-            'fecha_entrada'=>date('Y-m-d H:i:s')
+            'fecha_entrada'=>date('Y-m-d H:i:s'),
+            'microfecha'=>$microfecha
             
         );
         
@@ -326,7 +331,7 @@ class Registro extends CI_Controller {
         $rubro=$this->input->post("tipo_rubro");     
         $prioridad=$this->input->post("prioridad_peticionario");
         $observaciones=$this->input->post("observaciones_peticionario");
-         $peticion=$this->input->post("peticion_peticionario"); 
+        $peticion=$this->input->post("peticion_peticionario"); 
         $id_documento=$this->input->post("idDocumento_hide2");
 
         $data1=array(
@@ -536,6 +541,12 @@ class Registro extends CI_Controller {
     $data=$this->Audiencia_model->getAudienciasTimeLine();
     echo json_encode($data);
         
+    }
+    
+    public function getAdministracion(){
+        $this->load->model("Administracion_model");
+        $data=$this->Administracion_model->getAdministracion();
+        echo json_encode($data);
     }
   public function logout(){
 		$this->session->unset_userdata("admin_login");
