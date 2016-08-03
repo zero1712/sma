@@ -60,11 +60,23 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     </div>
                 </li>
                 <li class="active">
-                    <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
-                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
-                    <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
-                    <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
+                        <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
+                    <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-plus-square-o"></i> <span class="nav-label">Registro</span></a>
+                      <?php }?>
+                      <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 3)){?>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-male"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-phone"></i> <span class="nav-label">Contactados</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_na"><i class="fa fa-times"></i> <span class="nav-label">N/A</span></a>
+                      <?php }?>
+                           <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
+
+                    <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-calendar"></i> <span class="nav-label">Agenda</span></a>
+                    <?php }?>
+                                               <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)){?>
+
+                    <a href="#"><i class="fa fa-university"></i> <span class="nav-label">Audiencias</span></a>
+<?php }?>
+
 
 
 
@@ -99,7 +111,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Consulta</h2>
+                    <h2>Consulta audiencias</h2>
                  <p>
                     <strong>Dar doble click a algún renglón para acceder a toda su información.</strong>
                     </p>
@@ -111,6 +123,17 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     <div class="ibox ">
                         <div class="ibox-title">
                             <h5>Consulta de audiencias</h5>
+                        </div>
+                        <div class="ibox-content">
+                           <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Historial de audiencias</h5>
+                </div>
+                <div class="ibox-content inspinia-timeline">
+                </div>
+            </div>
+        </div>
                         </div>
                         <div class="ibox-content">
                       
@@ -144,36 +167,14 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                             <div id="datos_del_peticionario">
                                             <i class="fa fa-male modal-icon"></i>
                                             </div>
-                                            <h4 class="modal-title">Datos de la petición</h4>
+                                            <h4 class="modal-title">Datos de la audiencia</h4>
                                         </div>
                                         <div class="modal-body">
                                           <form enctype="multipart/form-data" method="post" id="form_datos_peticion" name="form_datos_peticion" class="form-vertical">
 
-                                                <div class="row">
-    <div class="form-group has-success">
-                                        <label class="col-sm-2 control-label">Fecha del documento:</label>
+                               
+                                                    
 
-                                        <div class="col-sm-4">
-                                            <input type="text" id="fecha_documento" name="fecha_documento"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" readonly>
-                                        </div>
-                                  
-                                                    </div></div>
-                                                    <br>
-    <div class="row">
-    <div class="form-group has-success">
-                                        <label class="col-sm-2 control-label">Numero del documento:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="numero_documento" name="numero_documento"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" readonly>
-                                        </div>
-                                        <label class="col-sm-2 control-label">Folio del documento:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="folio_documento" name="folio_documento" class="form-control"  onkeyup="aMays(event, this)" onblur="aMays(event, this)" onkeypress="return soloLetras(event);" readonly>
-                                        </div>
-                                    </div>
-        </div>
-         
                                                   <div class="hr-line-dashed"></div>
                                     <div class="row">
                                     <div class="form-group has-success">
@@ -257,7 +258,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                         </div> 
                                           
                                  <div class="hr-line-dashed"></div>
-                                           <b>  <small><p> Datos de la petición</p></small> </b>
+                                           <b>  <small><p> Datos de la audiencia</p></small> </b>
                                 <div class="hr-line-dashed"></div>
 
                                                 
@@ -266,120 +267,36 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
     <div class="form-group has-success">
                                     
                                 
-          <label class="col-sm-2 control-label">Observaciones:</label>
+          <label class="col-sm-2 control-label">Asunto:</label>
                                                        <div class="col-sm-4">
-                                                <textarea class="form-control" id="observaciones" name="observaciones" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
-                        <label class="col-sm-2 control-label">Petición:</label>
+                                                <textarea class="form-control" id="asunto" name="asunto" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
+                        <label class="col-sm-2 control-label">Seguimiento:</label>
 
                                         <div class="col-sm-4">
-                                                <textarea class="form-control" id="peticion" name="peticion" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
+                                                <textarea class="form-control" id="seguimiento" name="seguimiento" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)"></textarea>                                                                                </div>
         
                                     </div>
                             
                             
         </div>
                                               <br>
-         
-            <div id="datos_materiales">
-                 <div class="row">
-    <div class="form-group has-success">
-                                        
-                                        <label class="col-sm-2 control-label">Unidad de medida:</label>
-
-                                        <div class="col-sm-4">
-                                            <select id="unidad_de_medida" name="unidad_de_medida"  class="form-control">
-                                                <option  value="">Seleccione</option>
-                                                <option  value="Kilogramos">Kilogramos</option>
-                                                <option  value="Tonelada">Tonelada</option>
-                                                <option  value="Pieza">Pieza</option>
-                                                <option  value="Litros">Litros</option>
-                                                <option  value="Metros">Metros</option>
-                                            </select>  
-                                        </div>
-            <label class="col-sm-2 control-label">Rubro:</label>
-
-                                        <div class="col-sm-4">
-                                             <select id="rubro" name="rubro" class="form-control">
-                                               <option  value="">Seleccione</option>
-                                                <option  value="Calles/Servicios">Ciudadano</option>
-                                                <option  value="Educación">Educación</option>
-                                                <option  value="Religioso">Religioso</option>
-                                                <option  value="Salud">Salud</option>
-                                                <option  value="Seguridad">Seguridad </option>
-                                                <option  value="Calles/Servicios">Calles/Servicios</option>
-                                            </select>  
-                                        </div>
-                                    </div>
-        </div>
-                                                  <div class="hr-line-dashed"></div>
-
-             <div class="row">
-    <div class="form-group has-success">
-                                        
-                                        <label class="col-sm-2 control-label">Cantidad:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="cantidad" name="cantidad"  class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
-                                        </div>
-          <label class="col-sm-2 control-label">Concepto:</label>
-
-                                        <div class="col-sm-4">
-                                            <input type="text" id="concepto" name="concepto" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
-                                        </div>
-          
-                                    </div>
-        </div>
-         <br>
- </div>
+   
          <br>
           <div class="row">
          
              <div class="form-group has-success">
-                         <label class="col-sm-2 control-label">Tipo de petición:</label>
-
-                                        <div class="col-sm-4">
-                                            <select id="tipo" name="tipo" class="form-control">
-                                             <option  value="">Seleccione</option>
-                                                <option  value="Materiales/Regalos/Obsequios">Materiales/Regalos/Obsequios</option>
-                                                <option  value="Laboral">Laboral</option>
-                                                <option  value="Salud">Salud</option>
-                                                <option  value="Servicios Federales">Servicios Federales</option>
-                                                <option  value="Servicios Estatales">Servicios Estatales</option>
-                                                <option  value="Servicios Municipales">Servicios Municipales</option>
-
-                                            </select>
-                                        </div>
-                             <label class="col-sm-2 control-label">Prioridad:</label>
-
-                                        <div class="col-sm-4">
-                                            <select id="prioridad" name="prioridad" class="form-control" >
-                                                <option  value="">Seleccione</option>
-                                                <option  value="Urgente">Urgente</option>
-                                                <option  value="Regular">Regular</option>
-                                            </select>
-                                        
-                                        </div>
-                                   
+                                              
+          <label class="col-sm-2 control-label">Fecha de audiencia:</label>
+                                                       <div class="col-sm-10">
+                                                <input type="text" class="form-control" id="fecha_audiencia" name="fecha_audiencia" rows="3" id="comment" onkeyup="aMays(event, this)" onblur="aMays(event, this)">                                                                               </div>
+             
         
                                     </div>
                           
                                       
                                         </div>
                                               <br>
-                                                         <div class="row">
-    <div class="form-group has-success">
-                                        
-              <label class="col-sm-2 control-label">Status:</label>
 
-                                        <div class="col-sm-10">
-                                               <select class="form-control" id="status" name="status" >
-  <option value="" >Seleccione</option>
-  <option value="Contactado">Contactado</option>
-  <option value="N/A">N/A</option>
-</select>                                                                                     </div>
-
-                                    </div>
-        </div>
            
                                         <div class="hr-line-dashed"></div>
 
@@ -397,14 +314,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                                         <label class="col-sm-2 control-label">ID:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" id="id_peticiones" name="id_peticiones" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
+                                            <input type="text" id="id_audiencia" name="id_audiencia" class="form-control" onkeyup="aMays(event, this)" onblur="aMays(event, this)">
                                         </div>
                                     </div>   
              </div>
                                               </form>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                                            <button type="button" id="btt_update" name="btt_update" class="btn btn-primary">Guardar cambios</button>
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -459,39 +375,23 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 shrinkToFit: true,
                 rowNum: 20,
                 rowList: [10, 20, 30],
-                colNames:['ID','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Fecha entrada','Apellido paterno','Nombre','Apellido materno','peticion','Telefono celular','id_peticiones','id_datos_generales','Rubro','Tipo de peticion','Concepto','Unidad de medida','Cantidad','Prioridad','Observaciones','Cargo','Telefono casa','Calle y numero','Colonia','Municipio','status'],
+                colNames:['id_audiencia','Fecha de audiencia', 'Asunto de audiencia', 'Seguimiento audiencia','Apellido paterno','Nombre','Apellido materno','Telefono celular','id_datos_generales','Cargo','Telefono casa','Calle y numero','Colonia','Municipio'],
                 colModel:[
-                    {name:'id_documento',index:'id_documento', editable: true, width:60, sorttype:"int",search:true,hidden: true},
-                    {name:'fecha_documento',index:'fecha_documento', editable: true, width:40, sorttype:"date", formatter:"date",hidden: false},
-                    {name:'tipo_documento',index:'tipo_documento', editable: true, width:100,hidden: true},
-                    {name:'numero_documento',index:'numero_documento', editable: true, width:40, align:"right",hidden: false},
-                    {name:'folio_documento',index:'folio_documento', editable: true, width:40, align:"right",hidden: false},
-                    {name:'fecha_entrada',index:'fecha_entrada', editable: true, width:80,align:"right",sorttype:"date",formatter:"date",hidden:true},
+                    {name:'id_audiencia',index:'id_audiencia', editable: true, width:60, sorttype:"int",search:true,hidden: true},
+                    {name:'fecha_audiencia',index:'fecha_audiencia', editable: true, width:40, sorttype:"date", formatter:"date",hidden: false},
+                    {name:'asunto_de_audiencia',index:'asunto_de_audiencia', editable: true, width:100,hidden: false},
+                    {name:'seguimiento',index:'seguimiento', editable: true, width:40, align:"right",hidden: true},
                     {name:'ap_paterno',index:'ap_paterno', editable: true, width:60,search:true,hidden: false},
                     {name:'nombre',index:'nombre', editable: true, width:60,search:true,hidden: false},
                     {name:'ap_materno',index:'ap_materno', editable: true, width:60,search:true,hidden: true},
-                    {name:'peticion',index:'peticion', editable: true, width:100,hidden: true},
                     {name:'tel_celular',index:'tel_celular', editable: true, width:60,search:true,hidden: false},
-                    {name:'id_peticiones',index:'id_peticiones', editable: true, width:60, sorttype:"int",search:true,hidden: true},
                     {name:'id_datos_generales',index:'id_datos_generales', editable: true, width:60, sorttype:"int",search:true,hidden: true},
-                    {name:'rubro',index:'rubro', editable: true, width:100,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: 'Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios',defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Ciudadano:Ciudadano;Educación:Educación;Religioso:Religioso;Salud:Salud;Seguridad:Seguridad;Calles/Servicios:Calles/Servicios' }},
-
-                    {name:'tipo_de_peticion',index:'tipo_de_peticion', editable: true, width:90,hidden: false,formatter:"select", edittype: 'select', editoptions: { value: 'Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales', defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Materiales/Regalos/Obsequios:Materiales/Regalos/Obsequios;Laboral:Laboral;Salud:Salud;Servicios Federales:Servicios Federales;Servicios Estatales:Servicios Estatales;Servicios Municipales:Servicios Municipales' }},
-                    {name:'concepto',index:'concepto', editable: true, width:100,hidden: true},
-                    {name:'unidad_de_medida',index:'unidad_de_medida', editable: true, width:100,hidden: true},
-                    {name:'cantidad',index:'cantidad', editable: true, width:60, sorttype:"int",search:false,hidden: true},
-                    {name:'prioridad',index:'prioridad', editable: true, width:60,search:true,hidden: false,formatter:"select",edittype: 'select',editoptions: { value: 'Urgente:Urgente;Regular:Regular', defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Todos;Urgente:Urgente;Regular:Regular' }},
-                    {name:'observaciones',index:'observaciones', editable: true, width:100,hidden: true},
-                    {name:'cargo',index:'cargo', editable: true, width:60,search:true,hidden: true},
+                    {name:'cargo',index:'cargo', editable: true, width:60,search:true,hidden: false},
                     {name:'tel_casa',index:'tel_casa', editable: true, width:60,search:true,hidden: true},
                     {name:'calle_y_numero',index:'calle_y_numero', editable: true, width:60,search:true,hidden: true},
                     {name:'colonia',index:'colonia', editable: true, width:60,search:true,hidden: true},
                     {name:'municipio',index:'municipio', editable: true, width:60,search:true,hidden: true},
-                    {name:'status',index:'status', editable: true, width:60,search:true,hidden: true,formatter:"select",edittype: 'select',editoptions: { value: ':Seleccione;Contactado:Contactado;N/A:N/A', defaultValue: 'IN' },
-                        stype: 'select', searchoptions: { sopt: ['eq', 'ne'], value: ':Seleccione;Contactado:Contactado;N/A:N/A' }}
+                    
                   
                 ],
                 pager: "#pager_list_2",
@@ -508,18 +408,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     lastSel=rowId; 
                    
                     var rowData = jQuery(this).getRowData(rowId);
-                    $("#fecha_documento").val(rowData["fecha_documento"]);
-                    $("#folio_documento").val(rowData["folio_documento"]);
-                    $("#numero_documento").val(rowData["numero_documento"]);
-                    $("#concepto").val(rowData["concepto"]);
-                    $("#unidad_de_medida").val(rowData["unidad_de_medida"]);
-                    $("#rubro").val(rowData["rubro"]);
+                     $("#asunto").val(rowData["asunto_de_audiencia"]);
+                    $("#seguimiento").val(rowData["seguimiento"]);    
+                    $("#fecha_audiencia").val(rowData["fecha_audiencia"]);
+                    $("#cargo").val(rowData["cargo"]);
+                    $("#cel").val(rowData["tel_celular"]);
                     $("#apellido_p").val(rowData["ap_paterno"]);
                     $("#apellido_m").val(rowData["ap_materno"]);    
-                    $("#tipo").val(rowData["tipo_de_peticion"]);
-                    $("#peticion").val(rowData["peticion"]);
-                    $("#observaciones").val(rowData["observaciones"]);
-                    var nombre1=rowData["nombre"]+" "+rowData["ap_paterno"]+" "+rowData["ap_materno"];
                     $("#nombre").val(rowData["nombre"]);
                     $("#cargo").val(rowData["cargo"]);
                     $("#cel").val(rowData["tel_celular"]);
@@ -530,16 +425,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     $("#id_peticiones").val(rowData["id_peticiones"]);
                     $("#id_datos_generales").val(rowData["id_datos_generales"]);
 
-                    $("#status").val(rowData["status"]);
-                    if(rowData["tipo_de_peticion"]!='Materiales/Regalos/Obsequios'){
-                                $("#datos_materiales").attr("style", "display:none");
-
-                    }
-                    if(rowData["tipo_de_peticion"]=='Materiales/Regalos/Obsequios'){
-                                $("#datos_materiales").attr("style", "display:block");
-
-                    }
-
+                 
                     $('#datos_peticion').modal('show');
                         }
                      contador=contador+1;
@@ -566,9 +452,40 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 					}
                     
 				});
+                                            // Ajax call for timeline data
+
+                           $.ajax({
+					url:"<?php echo base_url(); ?>" + "index.php/registro/getAudienciasTimeLine",
+                    type:"POST",
+                    dataType: 'json', 
+					success: function(data){
+         var timelineDiv = $('.inspinia-timeline');
+                    $.each(data, function (i, item) {
+                        addTimelineTask(timelineDiv, item);
+                    })
+					}
+                    
+				});
+                    
+
+            // Simple function to append new timeline element
+            function addTimelineTask(timelineDiv, task) {
+                switch (task.Type) {
+                      
+                   /* case 'Meeting': iconType = "coffee";
+                        break;
+                    case 'Chat': iconType = "comments";
+                        break;
+                    case 'File': iconType = "file-text";
+                        break;
+                    default: iconType = "briefcase";*/
+                }
+                timelineDiv.append($('<div class="timeline-item">').html('<div class="row"> <div class="col-lg-4 date"><i class="fa fa-' + 'fa fa-briefcase' + '"></i> ' + task.fecha_audiencia + ' <br></div> <div class="col-lg-8  content"><p class="m-b-xs"><strong>' + task.nombre+' '+task.ap_paterno+' '+task.ap_materno+'/'+ task.cargo+ '</strong></p> <p> ' + task.asunto_de_audiencia + '</p> </div> </div>'))
+            };
+        
             
-            
-        }
+                                    }
+
 
             
                 $("#form_datos_peticion").submit(function() {
@@ -629,7 +546,7 @@ $('#tipo').on('change', function() {
  function aMays(e, elemento) {
                         tecla=(document.all) ? e.keyCode : e.which; 
                         elemento.value = elemento.value.toUpperCase();
-                        }
+ }
     </script>
 
 

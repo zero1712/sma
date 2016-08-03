@@ -71,20 +71,25 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 </li>
                <li class="active">
                       <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
-                    <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-th-large"></i> <span class="nav-label">Registro</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-plus-square-o"></i> <span class="nav-label">Registro</span></a>
                                            <?php }?>
                       
  <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 3)){?>
 
-                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-th-large"></i> <span class="nav-label">Peticiones</span></a>
-                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-th-large"></i> <span class="nav-label">Contactados</span></a>
-                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">N/A</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros"><i class="fa fa-male"></i> <span class="nav-label">Peticiones</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/registros_contactado"><i class="fa fa-phone"></i> <span class="nav-label">Contactados</span></a>
+                    <a href="#"><i class="fa fa-times"></i> <span class="nav-label">N/A</span></a>
                         <?php }?>
                          <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
 
-                    <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-th-large"></i> <span class="nav-label">Agenda</span></a>
+                    <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-calendar"></i> <span class="nav-label">Agenda</span></a>
 
  <?php }?>
+                                              <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)){?>
+
+                    <a href="<?php echo base_url();?>index.php/registro/goAudiencias"><i class="fa fa-university"></i> <span class="nav-label">Audiencias</span></a>
+<?php }?>
+
 
 
                 </li>
@@ -118,7 +123,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
         </div>
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
-                    <h2>Consulta</h2>
+                    <h2>Contactados</h2>
                  <p>
                     <strong>Dar doble click a algún renglón para acceder a toda su información.</strong>
                     </p>

@@ -6,16 +6,22 @@ class Audiencia_model extends CI_Model
         $this->db->insert('audiencias',$data1);
     }
     function getAudiencias(){
-        $this->db->where('tipo_documento',"3");
-        $this->db->where('status','0');
-        $this->db->order_by("id_documento","desc");
-        $this->db->select("documento.id_documento,documento.fecha_documento,(case documento.tipo_documento when '1' then 'Agenda/Evento' when '2' then 'Administracion' when '3' then 'Peticion' end) as tipo_documento, documento.numero_documento,documento.folio_documento,documento.fecha_entrada,peticiones.peticion,peticiones.id_peticiones,(case peticiones.tipo_de_peticion when '' then 'No asignado' when '1' then 'Materiales/Regalos/Obsequios' when '2' then 'Laboral' when '3' then 'Salud' when '4' then 'Servicios Federales' when '5' then 'Servicios Estatales' when '6' then 'Servicios Municipales' end) as tipo_de_peticion,peticiones.concepto,peticiones.unidad_de_medida,peticiones.rubro,peticiones.cantidad,(case peticiones.prioridad when '0' then 'No asignado' when '1' then 'Urgente' when '2' then 'Regular' end) as prioridad,peticiones.observaciones,(case peticiones.status when '0' then 'No Asignado' when '1' then 'Contactado' when '2' then 'N/A' end) as status,peticiones.id_datos_generales,datos_generales.nombre,datos_generales.ap_paterno,datos_generales.ap_materno,datos_generales.cargo,datos_generales.tel_celular,datos_generales.tel_casa,datos_generales.calle_y_numero,datos_generales.colonia,datos_generales.municipio");
-        $this->db->join('peticiones','documento.id_documento=peticiones.id_documento','left');
-        $this->db->join('datos_generales','peticiones.id_datos_generales=datos_generales.id_datos_generales','left');
-        $query=$this->db->get('documento');   
+     
+        $this->db->order_by("id_audiencia","desc");
+        $this->db->select("audiencias.id_audiencia,audiencias.fecha_audiencia,audiencias.asunto_de_audiencia,audiencias.seguimiento,audiencias.id_datos_generales,datos_generales.nombre,datos_generales.ap_paterno,datos_generales.ap_materno,datos_generales.cargo,datos_generales.tel_celular,datos_generales.tel_casa,datos_generales.calle_y_numero,datos_generales.colonia,datos_generales.municipio");
+        $this->db->join('datos_generales','audiencias.id_datos_generales=datos_generales.id_datos_generales','left');
+        $query=$this->db->get('audiencias');   
         return $query->result();
     }
- 
+     function getAudienciasTimeLine(){
+     
+        $this->db->order_by("id_audiencia","desc");
+        $this->db->limit('10');
+        $this->db->select("audiencias.id_audiencia,audiencias.fecha_audiencia,audiencias.asunto_de_audiencia,audiencias.seguimiento,audiencias.id_datos_generales,datos_generales.nombre,datos_generales.ap_paterno,datos_generales.ap_materno,datos_generales.cargo,datos_generales.tel_celular,datos_generales.tel_casa,datos_generales.calle_y_numero,datos_generales.colonia,datos_generales.municipio");
+        $this->db->join('datos_generales','audiencias.id_datos_generales=datos_generales.id_datos_generales','left');
+        $query=$this->db->get('audiencias');   
+        return $query->result();
+    }
 }
      
         

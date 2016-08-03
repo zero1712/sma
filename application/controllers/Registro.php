@@ -47,6 +47,12 @@ class Registro extends CI_Controller {
         
         $this->load->view('registro/registros_na');
     }
+    
+    public function goAudiencias(){
+    $this->load->view('registro/audiencias');
+
+        
+    }
         public function getStamp(){
   $now = (string)microtime();
   $now = explode(' ', $now);
@@ -522,6 +528,13 @@ class Registro extends CI_Controller {
         
         $this->Datos_generales_model->updatePersonaById($data2);
         echo json_encode(true);
+        
+    }
+    
+    public function getAudienciasTimeLine(){
+    $this->load->model('Audiencia_model');
+    $data=$this->Audiencia_model->getAudienciasTimeLine();
+    echo json_encode($data);
         
     }
   public function logout(){
