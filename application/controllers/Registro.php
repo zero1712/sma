@@ -53,6 +53,10 @@ class Registro extends CI_Controller {
 
         
     }
+    public function goAdministracion(){
+        
+        $this->load->view('registro/administracion');
+    }
         public function getStamp(){
   $now = (string)microtime();
   $now = explode(' ', $now);
@@ -437,7 +441,31 @@ class Registro extends CI_Controller {
 
 
     }
+    
+    public function updateAdministracion(){
+     $this->load->model('Administracion_model');
+    
+        $seguimiento=$this->input->post("seguimiento");
+        $remitente =$this->input->post("remitente");
+        $cargo=$this->input->post("cargo");
+        $dependencia=$this->input->post("dependencia");     
+        $asunto=$this->input->post("asunto");
+        $id_administracion=$this->input->post("id_administracion");
+     
+        $data=array(
+            "seguimiento"=>$seguimiento,
+            "remitente"=>$remitente,
+            "cargo"=>$cargo,
+            "dependencia"=>$dependencia,
+            "asunto"=>$asunto,
+            "id_administracion"=>$id_administracion
+        
+        );
+        $this->Administracion_model->updateAdministracion($data);
+        echo json_encode(true);
 
+
+    }
     public function updatePeticionyDatosById(){
         $this->load->model('Datos_generales_model');
         $this->load->model('Peticiones_model');

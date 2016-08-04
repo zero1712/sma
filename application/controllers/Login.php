@@ -32,10 +32,10 @@ class Login extends CI_Controller {
            $this->load->view('registro/formulario'); 
             }
             if($ExisteUsuarioyPassoword->privilegio == 2) {   
-           $this->load->view('registro/formulario'); 
+           $this->load->view('registro/audiencias'); 
             }
                if($ExisteUsuarioyPassoword->privilegio == 3) {   
-           $this->load->view('registro/registros'); 
+           $this->load->view('registro/formulario'); 
             }
             }
             else{   //   Si no logró validar

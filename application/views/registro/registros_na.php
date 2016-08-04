@@ -70,7 +70,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     </div>
                 </li>
                <li class="active">
-                      <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
+                      <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 3)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
                     <a href="<?php echo base_url();?>index.php/registro/goIndex"><i class="fa fa-plus-square-o"></i> <span class="nav-label">Registro</span></a>
                                            <?php }?>
                       
@@ -85,9 +85,13 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     <a href="<?php echo base_url();?>index.php/agenda/"><i class="fa fa-calendar"></i> <span class="nav-label">Agenda</span></a>
 
  <?php }?>
-                                              <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)){?>
+                                              <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
 
                     <a href="<?php echo base_url();?>index.php/registro/goAudiencias"><i class="fa fa-university"></i> <span class="nav-label">Audiencias</span></a>
+<?php }?>
+                           <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)){?>
+
+                    <a href="<?php echo base_url();?>index.php/registro/goAdministracion"><i class="fa fa-folder-o"></i> <span class="nav-label">Administración</span></a>
 <?php }?>
 
 
@@ -629,7 +633,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
 
                 }else{
                 alert("Ocurrio un error al actualizar, intente de nuevo mas tarde.");
-                $("#datos_peticionario").dialog('close');
+                $("#datos_peticion").modal('hide');
 
                 }
          
@@ -643,8 +647,20 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
            });
 
  $('#btt_update').click(function() {
-           
-            $("#form_datos_peticion").submit();
+        if (confirm('Desea cambiar los datos?\n ')) { 
+         
+        $("#form_datos_peticion").submit();                        
+                     
+                     }
+          else{
+                            
+                alert('Se cancelo la actualización de los datos');
+                $('#datos_peticion').modal('hide');
+
+
+
+        
+    }
         });
          
 $('#tipo').on('change', function() {
