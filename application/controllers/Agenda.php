@@ -34,10 +34,12 @@ class Agenda extends CI_Controller {
     public function getAgenda(){
     $this->load->model('Agenda_eventos_model');    
     $datos=$this->Agenda_eventos_model->getAgenda();
+
     echo json_encode($datos);
         
         
     }
+
     
     public  function updateEventoById(){
         $this->load->model('Agenda_eventos_model');

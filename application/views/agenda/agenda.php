@@ -219,12 +219,14 @@ var data2;
     }
         }
         });
+                
 
                         
 						
 					}
                     
 				});
+             
              
                           
     }
@@ -333,6 +335,24 @@ function fluidDialog() {
 function actualizarCalendario(){
          $.ajax({
 					url:"<?php echo base_url(); ?>" + "index.php/agenda/getAgenda",
+                    type:"POST",
+                    //dataType: 'json',
+                    
+					success: function(datos){
+                  
+                      
+				   var datos = $.parseJSON(datos);
+                     $("#calendar").fullCalendar('removeEvents');
+            
+                    $("#calendar").fullCalendar('addEventSource',datos);
+						
+					}
+                    
+				});
+}
+    function actualizarCalendario_personal(){
+         $.ajax({
+					url:"<?php echo base_url(); ?>" + "index.php/agenda/getAgenda_personal",
                     type:"POST",
                     //dataType: 'json',
                     
@@ -520,6 +540,7 @@ font-family: arial;
                 </div>
             </div>
         </div>
+     
     
     </div>
 </div>

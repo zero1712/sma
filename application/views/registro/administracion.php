@@ -74,7 +74,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                     <?php }?>
                                                <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 2)){?>
 
-                    <a href="#"><i class="fa fa-university"></i> <span class="nav-label">Audiencias</span></a>
+                    <a href="<?php echo base_url();?>index.php/registro/goAudiencias"><i class="fa fa-university"></i> <span class="nav-label">Audiencias</span></a>
 <?php }?>
                                                                  <?php if(($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)or($this->session->userdata("admin_login") and $this->session->userdata("admin_login")->privilegio == 1)){?>
 
