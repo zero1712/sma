@@ -483,31 +483,7 @@ type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
                 colNames:['ID','Fecha de registro','Fecha del documento', 'Tipo de documento', 'Numero de documento','Folio','Apellido paterno','Nombre','Apellido materno','peticion','Telefono celular','id_peticiones','id_datos_generales','Rubro','Tipo de peticion','Concepto','Unidad de medida','Cantidad','Prioridad','Observaciones','Cargo','Telefono casa','Calle y numero','Colonia','Municipio','status'],
                 colModel:[
                     {name:'id_documento',index:'id_documento', editable: true, width:60, sorttype:"int",search:true,hidden: true},
-                 { name: 'fecha_entrada', index: 'fecha_entrada', width: 90, align: 'left', editable: false, formatter: 'date',search: true,
-
-            formatoptions: {
-                srcformat: 'Y-m-d H:i:s',
-                newformat: 'd/m/Y'
-            },
-            sorttype:"date",
-            searchoptions: {
-                sopt: ['eq'],
-                dataInit: function (elem) {
-                    $(elem).datepicker({
-                        dateFormat: 'dd/mm/yy',
-                        changeYear: true,
-                        changeMonth: true,                            
-                        showWeek: true,
-                        onSelect: function (dateText, inst) {
-                            setTimeout(function () {
-                                $('#jQGridapproval')[0].triggerToolbar();
-                            }, 100);
-                        }
-                    });
-                }
-            }
-        },
-
+                    {name:'fecha_entrada',index:'fecha_entrada', editable: true, width:80,align:"right",sorttype:"date",formatter:"date",formatoptions: {srcformat: 'Y-m-d H:i:s', newformat:'d/m/Y - g:i A'},hidden:false},
                     {name:'fecha_documento',index:'fecha_documento', editable: true, width:40, sorttype:"date", formatter:"date",hidden: true},
                     {name:'tipo_documento',index:'tipo_documento', editable: true, width:100,hidden: true},
                     {name:'numero_documento',index:'numero_documento', editable: true, width:40, align:"right",hidden: false},
