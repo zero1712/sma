@@ -37,6 +37,9 @@ class Login extends CI_Controller {
                if($ExisteUsuarioyPassoword->privilegio == 3) {   
            $this->load->view('registro/formulario'); 
             }
+                  if($ExisteUsuarioyPassoword->privilegio == 10) {   
+           $this->load->view('registros/registros_ccm'); 
+            }
             }
             else{   //   Si no logró validar
                $data['error']="E-mail o password incorrecta, por favor vuelva a intentar";
